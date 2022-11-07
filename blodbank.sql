@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2022 at 01:57 PM
+-- Generation Time: Nov 07, 2022 at 02:09 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -47,9 +47,7 @@ CREATE TABLE `bookings` (
   `staff_id` int(11) NOT NULL,
   `appointment_date` datetime NOT NULL,
   `is_done` tinyint(4) NOT NULL,
-  `donated_amount` int(11) NOT NULL,
-  `donor_name` varchar(32) NOT NULL,
-  `staff_name` varchar(32) NOT NULL
+  `donated_amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
