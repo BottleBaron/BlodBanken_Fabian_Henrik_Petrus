@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 07, 2022 at 02:09 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Värd: 127.0.0.1
+-- Tid vid skapande: 07 nov 2022 kl 14:28
+-- Serverversion: 10.4.25-MariaDB
+-- PHP-version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `blodbank`
+-- Databas: `blodbank`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `blood_units`
+-- Tabellstruktur `blood_units`
 --
 
 CREATE TABLE `blood_units` (
@@ -38,7 +38,7 @@ CREATE TABLE `blood_units` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bookings`
+-- Tabellstruktur `bookings`
 --
 
 CREATE TABLE `bookings` (
@@ -53,7 +53,7 @@ CREATE TABLE `bookings` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `donors`
+-- Tabellstruktur `donors`
 --
 
 CREATE TABLE `donors` (
@@ -68,7 +68,7 @@ CREATE TABLE `donors` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `health_information`
+-- Tabellstruktur `health_information`
 --
 
 CREATE TABLE `health_information` (
@@ -83,7 +83,7 @@ CREATE TABLE `health_information` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `medicin`
+-- Tabellstruktur `medicin`
 --
 
 CREATE TABLE `medicin` (
@@ -95,7 +95,7 @@ CREATE TABLE `medicin` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `staff`
+-- Tabellstruktur `staff`
 --
 
 CREATE TABLE `staff` (
@@ -106,88 +106,126 @@ CREATE TABLE `staff` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Indexes for dumped tables
+-- Index för dumpade tabeller
 --
 
 --
--- Indexes for table `blood_units`
+-- Index för tabell `blood_units`
 --
 ALTER TABLE `blood_units`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `fk_bloodunits_donor_id` (`donor_id`),
+  ADD KEY `fk_bloodunits_booking_id` (`booking_id`);
 
 --
--- Indexes for table `bookings`
+-- Index för tabell `bookings`
 --
 ALTER TABLE `bookings`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `fk_bookings_donor_id` (`donor_id`),
+  ADD KEY `fk_bookings_staff_id` (`staff_id`);
 
 --
--- Indexes for table `donors`
+-- Index för tabell `donors`
 --
 ALTER TABLE `donors`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `health_information`
+-- Index för tabell `health_information`
 --
 ALTER TABLE `health_information`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `fk_health_information_donor_id` (`donor_id`);
+
+--
+-- Index för tabell `medicin`
+--
+ALTER TABLE `medicin`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `fk_medicin_health_information_id` (`health_info_id`);
+
+--
+-- Index för tabell `staff`
+--
+ALTER TABLE `staff`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `medicin`
---
-ALTER TABLE `medicin`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `staff`
---
-ALTER TABLE `staff`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT för dumpade tabeller
 --
 
 --
--- AUTO_INCREMENT for table `blood_units`
+-- AUTO_INCREMENT för tabell `blood_units`
 --
 ALTER TABLE `blood_units`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `bookings`
+-- AUTO_INCREMENT för tabell `bookings`
 --
 ALTER TABLE `bookings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `donors`
+-- AUTO_INCREMENT för tabell `donors`
 --
 ALTER TABLE `donors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `health_information`
+-- AUTO_INCREMENT för tabell `health_information`
 --
 ALTER TABLE `health_information`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `medicin`
+-- AUTO_INCREMENT för tabell `medicin`
 --
 ALTER TABLE `medicin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `staff`
+-- AUTO_INCREMENT för tabell `staff`
 --
 ALTER TABLE `staff`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restriktioner för dumpade tabeller
+--
+
+--
+-- Restriktioner för tabell `blood_units`
+--
+ALTER TABLE `blood_units`
+  ADD CONSTRAINT `fk_bloodunits_booking_id` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`id`),
+  ADD CONSTRAINT `fk_bloodunits_donor_id` FOREIGN KEY (`donor_id`) REFERENCES `donors` (`id`);
+
+--
+-- Restriktioner för tabell `bookings`
+--
+ALTER TABLE `bookings`
+  ADD CONSTRAINT `fk_bookings_donor_id` FOREIGN KEY (`donor_id`) REFERENCES `donors` (`id`),
+  ADD CONSTRAINT `fk_bookings_staff_id` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`id`);
+
+--
+-- Restriktioner för tabell `health_information`
+--
+ALTER TABLE `health_information`
+  ADD CONSTRAINT `fk_health_information_donor_id` FOREIGN KEY (`donor_id`) REFERENCES `donors` (`id`);
+
+--
+-- Restriktioner för tabell `medicin`
+--
+ALTER TABLE `medicin`
+  ADD CONSTRAINT `fk_medicin_health_information_id` FOREIGN KEY (`health_info_id`) REFERENCES `health_information` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
