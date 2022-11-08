@@ -178,7 +178,8 @@ public class SQLWriter
         {
             if (ContainsExemptedValues(input)) return null;
 
-            formattedString += input + ',';
+            if(input != values.Last()) formattedString += input + ",";
+            else formattedString += input;
         }
 
         return formattedString;

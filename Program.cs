@@ -27,5 +27,8 @@ internal class Program
         string sqlString = SQLWriter.FormatIntoSqlString(donorData);
         myDatamanager.RegisterDonor(sqlString);
         
+        // For testing
+        DataManager dataManager = new();
+        dataManager.CreateBooking("1, 1, false, NULL");
     }
 }
