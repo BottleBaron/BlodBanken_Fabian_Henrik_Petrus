@@ -24,15 +24,15 @@ internal class Program
 
         Console.WriteLine("blood type?");
         string bloodType = Console.ReadLine();
+        
         for (int i = 0; i < newDonor.BloodType.Count; i++)
         {
-            if (bloodType != newDonor.BloodType[i])
-            {
-                i++;
-            }
-            else if (bloodType == newDonor.BloodType[i])
+            if (bloodType == newDonor.BloodType[i])
             {
                 donorData.Add("'" + i + "'");
+            }
+            else if (bloodType != newDonor.BloodType[i])
+            {
             }
         }
 
