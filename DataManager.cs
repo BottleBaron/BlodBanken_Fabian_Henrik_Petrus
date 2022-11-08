@@ -35,6 +35,8 @@ public class DataManager
     {
         List<BloodUnit> allbloodUnits = SQLWriter.sp_SelectTable<BloodUnit>("*", "blood_units");
 
-        allbloodUnits.Sort()
+        allbloodUnits.Sort(new BloodUnitComparer());
+
+        return allbloodUnits;
     }
 }
