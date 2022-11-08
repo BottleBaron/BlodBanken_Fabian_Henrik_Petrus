@@ -9,6 +9,8 @@ public class Donor
     public int blood_type { get; set; }
     public string address { get; set; }
     public DateOnly date_of_birth { get; set; }
+
+    DataManager myDataManager = new();
     
     // Runtime Properties
     public Dictionary<int, string> BloodType = new()
