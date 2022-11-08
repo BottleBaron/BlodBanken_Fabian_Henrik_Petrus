@@ -6,7 +6,7 @@ public class SQLWriter
 {
     private static MySqlConnection DBConnection()
     {
-        var connection = new MySqlConnection("Server=localhost;Database=videoteket;Uid=root;Pwd=root");
+        var connection = new MySqlConnection("Server=localhost;Database=blodbank;Uid=root;");
         return connection;
     }
 
@@ -178,7 +178,8 @@ public class SQLWriter
         {
             if (ContainsExemptedValues(input)) return null;
 
-            formattedString += input + ',';
+            if(input != values.Last()) formattedString += input + ",";
+            else formattedString += input;
         }
 
         return formattedString;
