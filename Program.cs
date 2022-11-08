@@ -4,7 +4,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        
+        goto testing;
 
         DataManager myDatamanager = new();
         Donor newDonor = new();
@@ -39,8 +39,17 @@ internal class Program
         string sqlString = SQLWriter.FormatIntoSqlString(donorData);
         myDatamanager.RegisterDonor(sqlString);
         
+        testing:
+
         //For testing
-        DataManager dataManager = new();
-        dataManager.CreateBooking("1, 1, false, NULL");
+        // DataManager dataManager = new();
+        // dataManager.CreateBooking("1, 1, false, NULL");
+
+        List<BloodUnit> listAllBloodUnits = new();
+
+        foreach (var bloodUnit in listAllBloodUnits)
+        {
+            if(!bloodUnit.is_consumed) Console.WriteLine(bloodUnit.ToString());
+        }
     }
 }
