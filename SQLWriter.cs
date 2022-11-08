@@ -33,9 +33,9 @@ public class SQLWriter
     /// <summary>
     /// SELECT ´columns´ FROM ´table´ WHERE ´identifyer´ = ´idValue´;
     /// </summary>
-    public static T sp_SelectObject<T>(string columns, string table, string identifyer, int? idValue)
+    public static T sp_SelectObject<T>(string columns, string table, string condition)
     {
-        string query = $"SELECT {columns} FROM {table} WHERE {identifyer} = {idValue}";
+        string query = $"SELECT {columns} FROM {table} WHERE {condition}";
 
         using (var connection = DBConnection())
         {
