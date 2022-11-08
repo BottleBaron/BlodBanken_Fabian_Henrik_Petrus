@@ -42,10 +42,10 @@ internal class Program
         testing:
 
         //For testing
-        // DataManager dataManager = new();
+        DataManager dataManager = new();
         // dataManager.CreateBooking("1, 1, false, NULL");
 
-        List<BloodUnit> listAllBloodUnits = new();
+        List<BloodUnit> listAllBloodUnits = dataManager.GetAllBloodUnits();
 
         foreach (var bloodUnit in listAllBloodUnits)
         {
