@@ -25,9 +25,4 @@ public class Donor
         {7, "O+"},
         {8, "O-"}
     };
-
-    public Donor()
-    {
-    }
-    
 }
