@@ -7,13 +7,14 @@ internal class Program
         
 
         DataManager myDatamanager = new();
+        Donor newDonor = new();
         List<string> donorData = new();
 
         Console.WriteLine("name?");
-        donorData.Add(Console.ReadLine());
+        donorData.Add("'" + Console.ReadLine() + "'");
 
         Console.WriteLine("address?");
-        donorData.Add(Console.ReadLine());
+        donorData.Add("'" + Console.ReadLine() + "'");
 
         Console.WriteLine("phone number?");
         donorData.Add("'" + Console.ReadLine() + "'");
@@ -21,13 +22,24 @@ internal class Program
         Console.WriteLine("date of birth?");
         donorData.Add("'" + Console.ReadLine() + "'");
 
-        // Console.WriteLine("blood type?");
-        // donorData.Add(Console.ReadLine());
+        Console.WriteLine("blood type?");
+        string bloodType = Console.ReadLine();
+        for (int i = 0; i < newDonor.BloodType.Count; i++)
+        {
+            if (bloodType != newDonor.BloodType[i])
+            {
+                i++;
+            }
+            else if (bloodType == newDonor.BloodType[i])
+            {
+                donorData.Add("'" + i + "'");
+            }
+        }
 
         string sqlString = SQLWriter.FormatIntoSqlString(donorData);
         myDatamanager.RegisterDonor(sqlString);
         
-        // For testing
+        //For testing
         DataManager dataManager = new();
         dataManager.CreateBooking("1, 1, false, NULL");
     }
