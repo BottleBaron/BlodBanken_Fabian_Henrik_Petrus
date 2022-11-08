@@ -1,6 +1,6 @@
 namespace BlodBanken_Fabian_Henrik_Petrus;
 
-public class Bookings
+public class Booking
 {
     // DataBase Properties
     public int id { get; set; }

@@ -2,6 +2,7 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 
 public class HealthInformation
 {
+    // STRONG CONNECTION TO DONOR
     // DB Properties
     public int id { get; set; }
     public int donor_id { get; set; }
