@@ -8,7 +8,7 @@ public class Bookings
     public int staff_id { get; set; }
     public DateTime appointment_date { get; set; }
     public bool is_done { get; set; }
-    public int donated_amount { get; set; }
+    public int? donated_amount { get; set; }
     
     // Runtime Properties
     public string DonorName { get; set; }

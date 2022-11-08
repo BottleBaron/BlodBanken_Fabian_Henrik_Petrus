@@ -15,5 +15,12 @@ public class HealthInformation
     public int BloodType { get; set; }
     public List<string> Medicine_List { get; set; }
     
-    
+    public HealthInformation()
+    {
+        List<Medicin> tempList = SQLWriter.sp_SelectTable<Medicin>("*", $"medicin WHERE id = {id}");
+        foreach (var medicin in tempList)
+        {
+            Medicine_List.Add(medicin.medicine);
+        }
+    }
 }
