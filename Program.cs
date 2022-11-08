@@ -25,16 +25,16 @@ internal class Program
         Console.WriteLine("blood type?");
         string bloodType = Console.ReadLine();
         
-        for (int i = 0; i < newDonor.BloodType.Count; i++)
-        {
-            if (bloodType == newDonor.BloodType[i])
-            {
-                donorData.Add("'" + i + "'");
-            }
-            else if (bloodType != newDonor.BloodType[i])
-            {
-            }
-        }
+        // for (int i = 0; i < newDonor.BloodType.Count; i++)
+        // {
+        //     if (bloodType == newDonor.BloodType[i])
+        //     {
+        //         donorData.Add("'" + i + "'");
+        //     }
+        //     else if (bloodType != newDonor.BloodType[i])
+        //     {
+        //     }
+        // }
 
         string sqlString = SQLWriter.FormatIntoSqlString(donorData);
         myDatamanager.RegisterDonor(sqlString);

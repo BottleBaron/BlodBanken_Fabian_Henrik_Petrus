@@ -33,10 +33,12 @@ public class DataManager
 
     public List<BloodUnit> GetAllBloodUnits()
     {
-        List<BloodUnit> allbloodUnits = SQLWriter.sp_SelectTable<BloodUnit>("*", "blood_units");
+        List<BloodUnit> allbloodUnits = SQLWriter.sp_SelectTable<BloodUnit>("id, donor_id, booking_id, blood_type, is_consumed", "blood_units");
 
         allbloodUnits.Sort(new BloodUnitComparer());
 
         return allbloodUnits;
     }
+
+
 }
