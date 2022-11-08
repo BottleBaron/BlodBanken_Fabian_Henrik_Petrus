@@ -40,5 +40,18 @@ public class DataManager
         return allbloodUnits;
     }
 
+    public void SaveBloodUnits(int numberOfUnits, int bookingId)
+    {
+        // Maybe put bloodtype in booking?
+        Booking thisBooking = SQLWriter.sp_SelectObject<Booking>("*", "bookings", $"id = {bookingId}");
+        Donor thisDonor = SQLWriter.sp_SelectObject<Donor>("blood_type", "donors", $"id = {thisBooking.donor_id}");
 
+        for (int i = 0; i < numberOfUnits; i++)
+        {
+            SQLWriter.sp_InsertInto("blood_units", "donor_id, booking_id, blood_type", $"{thisBooking.donor_id}, {bookingId}, {thisDonor.blood_type}");
+        }
+
+        // Nåt lurt här v
+        SQLWriter.sp_UpdateTable("bookings", $"is_done = 1 AND donated_amount = {numberOfUnits}", $"id = {bookingId}");
+    }
 }

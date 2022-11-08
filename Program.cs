@@ -45,11 +45,18 @@ internal class Program
         DataManager dataManager = new();
         // dataManager.CreateBooking("1, 1, false, NULL");
 
+        // Works
         List<BloodUnit> listAllBloodUnits = dataManager.GetAllBloodUnits();
 
         foreach (var bloodUnit in listAllBloodUnits)
         {
             if(!bloodUnit.is_consumed) Console.WriteLine(bloodUnit.ToString());
         }
+
+        // Works
+        Staff activeStaffMember = dataManager.TryLogin("3rnie", "stinky123");
+        Console.WriteLine(activeStaffMember.id + activeStaffMember.name);
+
+        dataManager.SaveBloodUnits(2, 1);
     }
 }
