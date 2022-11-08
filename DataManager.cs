@@ -12,6 +12,6 @@ public class DataManager
     
     public void RegisterDonor(string values)
     {
-        SQLWriter.sp_InsertInto("table", "columns", values);
+        SQLWriter.sp_InsertInto("donors", "name, address, phone_number, date_of_birth", values);
     }
 }

@@ -6,7 +6,7 @@ public class SQLWriter
 {
     private static MySqlConnection DBConnection()
     {
-        var connection = new MySqlConnection("Server=localhost;Database=videoteket;Uid=root;Pwd=root");
+        var connection = new MySqlConnection("Server=localhost;Database=blodbank;Uid=root;");
         return connection;
     }
 
