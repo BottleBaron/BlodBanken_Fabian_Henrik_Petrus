@@ -8,8 +8,8 @@ public class DataManager
         string appointmentDate = DateTime.Now.AddDays(7).ToString("yy-MM-dd HH:mm:ss");
         SQLWriter.sp_InsertInto("bookings", "donor_id, staff_id, is_done, donated_amount, appointment_date", $"{values}, '{appointmentDate}'");
 
-        Booking thisBooking = SQLWriter.sp_SelectObject<Booking>("id", "bookings", $"appointment_date = {appointmentDate}");
-        return thisBooking.id;
+        int id = SQLWriter.SelectLastID("id", "bookings");
+        return id;
     }
 
     public int RegisterDonor(string values)
