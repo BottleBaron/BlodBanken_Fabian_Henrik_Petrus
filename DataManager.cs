@@ -72,4 +72,13 @@ public class DataManager
 
     }
 
-}
+
+    public void SaveMedicinList(List<Medicin> myMedicineList)
+
+    {   foreach (var m in myMedicineList)
+    {
+         SQLWriter.sp_InsertInto("`medicin`","`health_info_id`, `medicine`",$"{m.health_info_id},{m.medicine}");
+    }
+       
+    }
+}   
