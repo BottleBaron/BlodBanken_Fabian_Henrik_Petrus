@@ -55,4 +55,10 @@ public class DataManager
         SQLWriter.sp_UpdateTable("bookings", $"is_done = 1", $"id = {bookingId}");
         SQLWriter.sp_UpdateTable("bookings", $"donated_amount = {numberOfUnits}", $"id = {bookingId}");
     }
+
+    public List<Donor> GetDonors(int bloodType)
+    {
+        List<Donor> foundDonors = SQLWriter.sp_SelectTable<Donor>("*", $"donors WHERE blood_type = {bloodType}");
+        return foundDonors;
+    }
 }
