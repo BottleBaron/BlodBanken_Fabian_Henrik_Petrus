@@ -9,6 +9,7 @@ internal class Program
         DataManager myDatamanager = new();
         Donor newDonor = new();
         List<string> donorData = new();
+        BloodTypeKey bloodTypeKey = new();
 
         Console.WriteLine("name?");
         donorData.Add("'" + Console.ReadLine() + "'");
@@ -25,19 +26,17 @@ internal class Program
         Console.WriteLine("blood type?");
         string bloodType = Console.ReadLine();
         
-        // for (int i = 0; i < newDonor.BloodType.Count; i++)
-        // {
-        //     if (bloodType == newDonor.BloodType[i])
-        //     {
-        //         donorData.Add("'" + i + "'");
-        //     }
-        //     else if (bloodType != newDonor.BloodType[i])
-        //     {
-        //     }
-        // }
+        for (int i = 0; i < bloodTypeKey.BloodType.Count; i++)
+        {
+            if (bloodType == bloodTypeKey.BloodType[i])
+            {
+                donorData.Add("'" + i + "'");
+            }
+        }
 
         string sqlString = SQLWriter.FormatIntoSqlString(donorData);
-        myDatamanager.RegisterDonor(sqlString);
+        int id = myDatamanager.RegisterDonor(sqlString);
+        Console.WriteLine(id);
         
         testing:
 

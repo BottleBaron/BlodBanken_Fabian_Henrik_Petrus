@@ -12,9 +12,12 @@ public class DataManager
         return thisBooking.id;
     }
 
-    public void RegisterDonor(string values)
+    public int RegisterDonor(string values)
     {
         SQLWriter.sp_InsertInto("donors", "name, address, phone_number, date_of_birth, blood_type", values);
+        int id = SQLWriter.SelectLastID("id", "donors");
+
+        return id;
     }
 
     // STAFF FUNTIONALITY
