@@ -61,4 +61,12 @@ public class DataManager
         List<Donor> foundDonors = SQLWriter.sp_SelectTable<Donor>("*", $"donors WHERE blood_type = {bloodType}");
         return foundDonors;
     }
+
+
+      public void SaveHealthInformation(HealthInformation myHealthInformation)
+    {
+        SQLWriter.sp_InsertInto("health_information", "`donor_id`, `donor_height`, `donor_weight`, `is_drug_user`, `visited_high_risk_country`",$"{myHealthInformation.donor_id}, {myHealthInformation.donor_height}, {myHealthInformation.donor_weight},{myHealthInformation.is_drug_user},{myHealthInformation.visited_high_risk_country}");
+
+    }
+
 }

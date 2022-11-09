@@ -67,5 +67,77 @@ internal class Program
             Console.WriteLine(item);
         }
 
+
+
+        int donorHeight,donorWeight;
+        bool isDrugUser,visitedHighRiskCountry;
+
+        Console.WriteLine("What is your height in centimeters");
+        donorHeight = ForceInt(Console.ReadLine());
+
+        Console.WriteLine("What is your weight in kilograms");
+        donorWeight = ForceInt(Console.ReadLine());
+
+        Console.WriteLine("Have you been using drugs\n[Y]\n[N]");
+       isDrugUser = ReturnBool();
+        Console.WriteLine("Have you been abroad in a high risk country\n[Y]\n[N]");
+        visitedHighRiskCountry = ReturnBool();
+
+        HealthInformation myHealthinformation = new();
+        //Spara till 
+        List<Medicin> myMedicineList = new List<Medicin>();
+
+
+
+
     }
+
+      public static int ForceInt(string inputString)
+    {
+
+        int result;
+        if (int.TryParse(inputString, out result))
+        {
+            return result;
+        }
+
+        else
+        {
+            while (true)
+            {
+                Console.WriteLine("You have not entered a valid number, please try again");
+                inputString = Console.ReadLine();
+                if (int.TryParse(inputString, out result))
+                {
+                    return result;
+                }
+            }
+        }
+    }
+
+    public static bool ReturnBool()
+    {
+        while (true)
+        {
+            char inputKey = Console.ReadKey(true).KeyChar;
+
+            if (inputKey == 'Y' || inputKey == 'y')
+            {
+                return true;
+            }
+            else if (inputKey == 'N' || inputKey == 'n')
+            {
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+
+
+
+
 }
