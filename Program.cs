@@ -46,17 +46,26 @@ internal class Program
         // dataManager.CreateBooking("1, 1, false, NULL");
 
         // Works
-        List<BloodUnit> listAllBloodUnits = dataManager.GetAllBloodUnits();
+        // List<BloodUnit> listAllBloodUnits = dataManager.GetAllBloodUnits();
 
-        foreach (var bloodUnit in listAllBloodUnits)
-        {
-            if(!bloodUnit.is_consumed) Console.WriteLine(bloodUnit.ToString());
-        }
+        // foreach (var bloodUnit in listAllBloodUnits)
+        // {
+        //     if(!bloodUnit.is_consumed) Console.WriteLine(bloodUnit.ToString());
+        // }
 
         // Works
-        Staff activeStaffMember = dataManager.TryLogin("3rnie", "stinky123");
-        Console.WriteLine(activeStaffMember.id + activeStaffMember.name);
+        // Staff activeStaffMember = dataManager.TryLogin("3rnie", "stinky123");
+        // Console.WriteLine(activeStaffMember.id + activeStaffMember.name);
 
-        dataManager.SaveBloodUnits(2, 1);
+        // Works
+        //dataManager.SaveBloodUnits(2, 1);
+
+        //Works
+        List<Donor> AB = dataManager.GetDonors(5);
+        foreach (var item in AB)
+        {
+            Console.WriteLine(item);
+        }
+
     }
 }
