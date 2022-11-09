@@ -40,6 +40,7 @@ public class DataManager
         return allbloodUnits;
     }
 
+    // From Confirmed donation 
     public void SaveBloodUnits(int numberOfUnits, int bookingId)
     {
         // Maybe put bloodtype in booking?
@@ -51,7 +52,7 @@ public class DataManager
             SQLWriter.sp_InsertInto("blood_units", "donor_id, booking_id, blood_type", $"{thisBooking.donor_id}, {bookingId}, {thisDonor.blood_type}");
         }
 
-        // Nåt lurt här v
-        SQLWriter.sp_UpdateTable("bookings", $"is_done = 1 AND donated_amount = {numberOfUnits}", $"id = {bookingId}");
+        SQLWriter.sp_UpdateTable("bookings", $"is_done = 1", $"id = {bookingId}");
+        SQLWriter.sp_UpdateTable("bookings", $"donated_amount = {numberOfUnits}", $"id = {bookingId}");
     }
 }
