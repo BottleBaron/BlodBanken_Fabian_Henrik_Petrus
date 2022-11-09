@@ -24,4 +24,14 @@ public class HealthInformation
             Medicine_List.Add(medicin.medicine);
         }
     }
+
+   public HealthInformation(int donorId,int donorHeight,int donorWeight,bool isDrugUser,bool haveVisitedHighRiskCountry)
+    {
+        donor_id = donorId;
+        donor_height = donorHeight;
+        donor_weight = donorWeight;
+        is_drug_user = isDrugUser;
+        visited_high_risk_country = haveVisitedHighRiskCountry;
+    }
+    
 }

@@ -209,4 +209,27 @@ public class SQLWriter
 
         return false;
     }
+
+
+
+    public static int SelectLastID(string column, string table)
+    {
+        string query = $"SELECT MAX({column}) FROM {table}";
+
+        using (var connection = DBConnection())
+        {
+            try
+            {
+                int id = connection.QuerySingle<int>(query);
+
+                return id;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+    }
+
+
 }
