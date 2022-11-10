@@ -4,7 +4,8 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        BloodUnit bU = new(){
+        BloodUnit bU = new()
+        {
             donor_id = 1,
             booking_id = 1,
             blood_type = 5,
@@ -32,7 +33,7 @@ internal class Program
 
         Console.WriteLine("blood type?");
         string bloodType = Console.ReadLine();
-        
+
         for (int i = 0; i < bloodTypeKey.BloodType.Count; i++)
         {
             if (bloodType == bloodTypeKey.BloodType[i])
@@ -44,7 +45,7 @@ internal class Program
         string sqlString = SQLWriter.FormatIntoSqlString(donorData);
         int id = myDatamanager.RegisterDonor(sqlString);
         Console.WriteLine(id);
-        
+
 
         //For testing
         DataManager dataManager = new();
@@ -74,8 +75,8 @@ internal class Program
 
 
 
-        int donorHeight,donorWeight;
-        bool isDrugUser,visitedHighRiskCountry;
+        int donorHeight, donorWeight;
+        bool isDrugUser, visitedHighRiskCountry;
 
         Console.WriteLine("What is your height in centimeters");
         donorHeight = ForceInt(Console.ReadLine());
@@ -83,10 +84,10 @@ internal class Program
         Console.WriteLine("What is your weight in kilograms");
         donorWeight = ForceInt(Console.ReadLine());
 
-        Console.WriteLine("Have you been using drugs\n[Y]\n[N]");
-       isDrugUser = ReturnBool();
-        Console.WriteLine("Have you been abroad in a high risk country\n[Y]\n[N]");
-        visitedHighRiskCountry = ReturnBool();
+        // Console.WriteLine("Have you been using drugs\n[Y]\n[N]");
+        // isDrugUser = ReturnBool();
+        // Console.WriteLine("Have you been abroad in a high risk country\n[Y]\n[N]");
+        // visitedHighRiskCountry = ReturnBool();
 
         HealthInformation myHealthinformation = new();
         //Spara till 
@@ -97,7 +98,7 @@ internal class Program
 
     }
 
-      public static int ForceInt(string inputString)
+    public static int ForceInt(string inputString)
     {
 
         int result;
@@ -120,24 +121,19 @@ internal class Program
         }
     }
 
-    public static bool ReturnBool()
+    public static bool? ReturnBool(ConsoleKeyInfo inputKey)
     {
-        while (true)
+        if (inputKey.Key == ConsoleKey.Y)
         {
-            char inputKey = Console.ReadKey(true).KeyChar;
-
-            if (inputKey == 'Y' || inputKey == 'y')
-            {
-                return true;
-            }
-            else if (inputKey == 'N' || inputKey == 'n')
-            {
-                return false;
-            }
-            else
-            {
-                return false;
-            }
+            return true;
+        }
+        else if (inputKey.Key == ConsoleKey.N)
+        {
+            return false;
+        }
+        else
+        {
+            return null;
         }
     }
 
