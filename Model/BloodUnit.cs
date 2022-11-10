@@ -2,7 +2,7 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 
 public class BloodUnit
 {
-    public int id { get; set; }
+    public int? id { get; set; }
     public int donor_id { get; set; }
     public int booking_id { get; set; }
     public int blood_type { get; set; }

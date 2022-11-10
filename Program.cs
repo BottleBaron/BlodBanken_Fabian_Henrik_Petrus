@@ -4,7 +4,14 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        goto testing;
+        BloodUnit bU = new(){
+            donor_id = 1,
+            booking_id = 1,
+            blood_type = 5,
+            is_consumed = false
+        };
+        BloodUnitDB.Create(bU);
+        Environment.Exit(0);
 
         DataManager myDatamanager = new();
         Donor newDonor = new();
@@ -38,7 +45,6 @@ internal class Program
         int id = myDatamanager.RegisterDonor(sqlString);
         Console.WriteLine(id);
         
-        testing:
 
         //For testing
         DataManager dataManager = new();
