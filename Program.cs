@@ -4,6 +4,9 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        // Testing Crud
+
+        BloodUnitDB BuDB = new();
         BloodUnit bU = new()
         {
             donor_id = 1,
@@ -11,7 +14,16 @@ internal class Program
             blood_type = 5,
             is_consumed = false
         };
-        BloodUnitDB.Create(bU);
+        int id = BuDB.Create(bU);
+        Console.WriteLine(id);
+
+        List<BloodUnit> BUList = BuDB.Read();
+        foreach (var item in BUList)
+        {
+            Console.WriteLine(item.ToString());
+        }
+
+        
         Environment.Exit(0);
 
         DataManager myDatamanager = new();
@@ -43,7 +55,7 @@ internal class Program
         }
 
         string sqlString = SQLWriter.FormatIntoSqlString(donorData);
-        int id = myDatamanager.RegisterDonor(sqlString);
+        //int id = myDatamanager.RegisterDonor(sqlString);
         Console.WriteLine(id);
 
 

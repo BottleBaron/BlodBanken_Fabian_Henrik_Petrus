@@ -25,7 +25,7 @@ public class HealthInformation
         }
     }
 
-   public HealthInformation(int donorId,int donorHeight,int donorWeight,bool isDrugUser,bool haveVisitedHighRiskCountry)
+   public HealthInformation(int donorId, int donorHeight, int donorWeight, bool isDrugUser, bool haveVisitedHighRiskCountry)
     {
         donor_id = donorId;
         donor_height = donorHeight;

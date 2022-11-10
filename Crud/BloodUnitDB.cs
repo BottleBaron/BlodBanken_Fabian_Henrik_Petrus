@@ -2,24 +2,23 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 using Dapper;
 using MySqlConnector;
 
-class BloodUnitDB
+class BloodUnitDB : ICrud<BloodUnit>
 {
-    private static MySqlConnection DBConnection()
+    public MySqlConnection DBConnection()
     {
         var connection = new MySqlConnection("Server=localhost;Database=blodbank;Uid=root;");
         return connection;
     }
 
-    // SELECT CREATE DELETE UPDATE
-    public static List<BloodUnit> Select()
+    public List<BloodUnit> Read()
     {
         string query = "SELECT * FROM blood_units";
 
-        using (var Connection = DBConnection())
+        using (var connection = DBConnection())
         {
             try
             {
-                var bloodUnits = Connection.Query<BloodUnit>(query).ToList();
+                var bloodUnits = connection.Query<BloodUnit>(query).ToList();
 
                 return bloodUnits;
             }
@@ -30,17 +29,19 @@ class BloodUnitDB
         }
     }
 
-    public static void Create(BloodUnit bloodUnit)
+    public int Create(BloodUnit bloodUnit)
     {
         var parameters = new DynamicParameters(bloodUnit);
         
-        string query = $"INSERT INTO blood_units (donor_id, booking_id, blood_type, is_consumed) VALUES(@donor_id, @booking_id, @blood_type, @is_consumed)";
+        string query = $"INSERT INTO blood_units (donor_id, booking_id, blood_type, is_consumed) " +
+        "OUTPUT INSERTED.id VALUES(@donor_id, @booking_id, @blood_type, @is_consumed)";
 
-        using (var Connection = DBConnection())
+        using (var connection = DBConnection())
         {
             try
             {
-                Connection.Execute(query, parameters);
+                var identity = connection.ExecuteScalar<int>(query, parameters);
+                return identity;
             }
             catch (System.Exception e)
             {
@@ -49,18 +50,38 @@ class BloodUnitDB
         }
     }
 
-    public static void Update(BloodUnit bloodUnit)
+    public void Update(BloodUnit bloodUnit)
     {
-        var parameters = new DynamicParameters();
-        
+        var parameters = new DynamicParameters(bloodUnit);
 
-        string query = $"UPDATE blood_units SET 'parameters' WHERE 'condition' ";
+        string query = $"UPDATE blood_units " +
+        "SET donor_id = @donor_id, booking_id = @booking_id, blood_type = @blood_type, is_consumed = @is_consumed " +
+        "WHERE id = @id";
 
-        using (var Connection = DBConnection())
+        using (var connection = DBConnection())
         {
             try
             {
-                Connection.Execute(query);
+                connection.Execute(query);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+    }
+
+    public void Delete(BloodUnit bloodUnit)
+    {
+        var parameters = new DynamicParameters(bloodUnit);
+
+        string query = "DELETE blood_units WHERE id = @id";
+
+        using (var connection = DBConnection())
+        {
+            try
+            {
+                connection.Execute(query);
             }
             catch (System.Exception e)
             {

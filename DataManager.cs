@@ -28,12 +28,13 @@ public class DataManager
 
         foreach (var staff in allStaffList)
         {
-            if(loginName == staff.login_name && passWord == staff.password) return staff;
+            if (loginName == staff.login_name && passWord == staff.password) return staff;
         }
 
         return null;
     }
 
+    // Exists in crud
     public List<BloodUnit> GetAllBloodUnits()
     {
         List<BloodUnit> allbloodUnits = SQLWriter.sp_SelectTable<BloodUnit>("id, donor_id, booking_id, blood_type, is_consumed", "blood_units");
@@ -43,6 +44,7 @@ public class DataManager
         return allbloodUnits;
     }
 
+    // Will split into two methods in bloodUnitMgr & BookingMgr
     // From Confirmed donation 
     public void SaveBloodUnits(int numberOfUnits, int bookingId)
     {
@@ -65,20 +67,20 @@ public class DataManager
         return foundDonors;
     }
 
-
-      public void SaveHealthInformation(HealthInformation myHealthInformation)
+    // Crud
+    public void SaveHealthInformation(HealthInformation myHealthInformation)
     {
-        SQLWriter.sp_InsertInto("health_information", "`donor_id`, `donor_height`, `donor_weight`, `is_drug_user`, `visited_high_risk_country`",$"{myHealthInformation.donor_id}, {myHealthInformation.donor_height}, {myHealthInformation.donor_weight},{myHealthInformation.is_drug_user},{myHealthInformation.visited_high_risk_country}");
+        SQLWriter.sp_InsertInto("health_information", "`donor_id`, `donor_height`, `donor_weight`, `is_drug_user`, `visited_high_risk_country`", $"{myHealthInformation.donor_id}, {myHealthInformation.donor_height}, {myHealthInformation.donor_weight},{myHealthInformation.is_drug_user},{myHealthInformation.visited_high_risk_country}");
 
     }
 
-
+    // Crud
     public void SaveMedicinList(List<Medicin> myMedicineList)
 
-    {   foreach (var m in myMedicineList)
     {
-         SQLWriter.sp_InsertInto("`medicin`","`health_info_id`, `medicine`",$"{m.health_info_id},{m.medicine}");
+        foreach (var m in myMedicineList)
+        {
+            SQLWriter.sp_InsertInto("`medicin`", "`health_info_id`, `medicine`", $"{m.health_info_id},{m.medicine}");
+        }
     }
-       
-    }
-}   
+}
