@@ -2,7 +2,7 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 using Dapper;
 using MySqlConnector;
 
-class BookingDB : ICrud<Booking>
+class BookingDB :DBConnection, ICrud<Booking>
 {
     public MySqlConnection DBConnection()
     {

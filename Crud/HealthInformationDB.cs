@@ -2,7 +2,7 @@ using System.Reflection.Metadata.Ecma335;
 using BlodBanken_Fabian_Henrik_Petrus;
 using MySqlConnector;
 using Dapper;
-class HealthInformationDB : ICrud<HealthInformation>
+class HealthInformationDB : DBConnection, ICrud<HealthInformation>
 {
 
    
@@ -14,7 +14,7 @@ class HealthInformationDB : ICrud<HealthInformation>
         string query = $"INSERT INTO health_information (donor_id, donor_height, donor_weight, is_drug_user, visited_high_risk_country) " +
         "VALUES(@donor_id, @donor_height, @donor_weight, @is_drug_user, @visited_high_risk_country); SELECT LAST_INSERT_ID();";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -28,11 +28,7 @@ class HealthInformationDB : ICrud<HealthInformation>
         }
     }
 
-    public MySqlConnection DBConnection()
-    {
-         var connection = new MySqlConnection("Server=localhost;Database=blodbank;Uid=root;");
-        return connection;
-    }
+  
 
     public void Delete(HealthInformation healthInformation)
     {
@@ -40,7 +36,7 @@ class HealthInformationDB : ICrud<HealthInformation>
 
         string query = "DELETE health_information WHERE id = @id";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {

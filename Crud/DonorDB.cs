@@ -2,19 +2,15 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 using Dapper;
 using MySqlConnector;
 
-class DonorDB : ICrud<Donor>
+class DonorDB : DBConnection, ICrud<Donor>
 {
-    public MySqlConnection DBConnection()
-    {
-        var connection = new MySqlConnection("Server=localhost;Database=blodbank;Uid=root;");
-        return connection;
-    }
+
 
     public List<Donor> Read()
     {
         string query = "SELECT * FROM donors";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -35,7 +31,7 @@ class DonorDB : ICrud<Donor>
         string query = "INSERT INTO donors (name, phone_number, blood_type, adress, date_of_birth) " +
         "VALUES(@name, @phone_number, @blood_type, @adress, @date_of_birth); SELECT MAX(id) FROM donors";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -58,7 +54,7 @@ class DonorDB : ICrud<Donor>
         "SET name = @name, phone_number = @phone_number, blood_type = @blood_type, adress = @adress, date_of_birth = @date_of_birth " +
         "WHERE id = @id";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -77,7 +73,7 @@ class DonorDB : ICrud<Donor>
 
         string query = "DELETE donors WHERE id = @id";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
