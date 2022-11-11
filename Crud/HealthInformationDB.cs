@@ -33,8 +33,9 @@ class MyClass : ICrud<HealthInformation>
     {
         var parameters = new DynamicParameters(obj);
 
-        string query = $"INSERT INTO health_information (donor_id, donor_height, donor_weight, is_drug_user, visited_high_risk_country) " + 
-                       "VALUES(@donor_id, @donor_height, @donor_weight, @is_drug_user, @visited_high_risk_country); SELECT MAX(id) FROM blood_units;";
+        string query =
+            $"INSERT INTO health_information (donor_id, donor_height, donor_weight, is_drug_user, visited_high_risk_country) " +
+            "VALUES(@donor_id, @donor_height, @donor_weight, @is_drug_user, @visited_high_risk_country); SELECT MAX(id) FROM blood_units;";
 
         using (var connection = DBConnection())
         {
@@ -74,6 +75,20 @@ class MyClass : ICrud<HealthInformation>
 
     public void Delete(HealthInformation obj)
     {
-        //throw new NotImplementedException();
+        var parameters = new DynamicParameters(obj);
+
+        string query = "DELETE health_information where id = @id";
+
+        using (var connection = DBConnection())
+        {
+            try
+            {
+                connection.Execute(query, parameters);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

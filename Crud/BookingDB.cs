@@ -53,7 +53,6 @@ class BookingDB : ICrud<Booking>
 
     public void Update(Booking obj)
     {
-  
         var parameters = new DynamicParameters(obj);
 
         string query = "UPDATE bookings " +
