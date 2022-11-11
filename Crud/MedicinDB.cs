@@ -6,24 +6,83 @@ using MySqlConnector;
 
 class MedicinDB : DBConnection, ICrud<Medicin>
 {
-    public int Create(Medicin obj)
+    public int Create(Medicin myMedicine)
     {
-       return 3; 
+         var parameters = new DynamicParameters(myMedicine);
+        
+        string query = $"INSERT INTO medicin (health_info_id,medicine) " +
+        "VALUES(@health_info_id, @medicine); SELECT LAST_INSERT_ID();";
+
+        using (var connection = DBConnect())
+        {
+            try
+            {
+                var identity = connection.ExecuteScalar<int>(query, parameters);
+                return identity;
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
     }
 
-    public void Delete(Medicin obj)
+    public void Delete(Medicin myMedicine)
     {
-        throw new NotImplementedException();
+         var parameters = new DynamicParameters(myMedicine);
+
+        string query = "DELETE blood_units WHERE id = @id";
+
+        using (var connection = DBConnect())
+        {
+            try
+            {
+                connection.Execute(query);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
     }
 
     public List<Medicin> Read()
-    {
-        throw new NotImplementedException();
+    {   
+        string query = "SELECT * FROM medicin";
+          using (var connection = DBConnect())
+        {
+            try
+            {
+                var medicine = connection.Query<Medicin>(query).ToList();
+
+                return medicine;
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
     }
 
-    public void Update(Medicin obj)
+    public void Update(Medicin myMedicine)
     {
-        throw new NotImplementedException();
+         var parameters = new DynamicParameters(myMedicine);
+
+        string query = $"UPDATE medicine " +
+        "SET health_info_id = @health_info_id, medicine = @medicine " +
+        "WHERE id = @id";
+
+        using (var connection = DBConnect())
+        {
+            try
+            {
+                connection.Execute(query);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
     }
 
   
