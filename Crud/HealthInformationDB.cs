@@ -2,19 +2,42 @@ using System.Reflection.Metadata.Ecma335;
 using BlodBanken_Fabian_Henrik_Petrus;
 using MySqlConnector;
 using Dapper;
-class HealthInformationDB : DBConnection, ICrud<HealthInformation>
+
+class MyClass : ICrud<HealthInformation>
 {
-
-   
-
-    public int Create(HealthInformation healthInformation)
+    public MySqlConnection DBConnection()
     {
-         var parameters = new DynamicParameters(healthInformation);
-        
-        string query = $"INSERT INTO health_information (donor_id, donor_height, donor_weight, is_drug_user, visited_high_risk_country) " +
-        "VALUES(@donor_id, @donor_height, @donor_weight, @is_drug_user, @visited_high_risk_country); SELECT LAST_INSERT_ID();";
+        var connection = new MySqlConnection("Server=localhost;Database=blodbank;Uid=root;");
+        return connection;
+    }
 
-        using (var connection = DBConnect())
+    public List<HealthInformation> Read()
+    {
+        string query = "SELECT * FROM health_information";
+
+        using (var connection = DBConnection())
+        {
+            try
+            {
+                var result = connection.Query<HealthInformation>(query).ToList();
+                return result;
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+    }
+
+    public int Create(HealthInformation obj)
+    {
+        var parameters = new DynamicParameters(obj);
+
+        string query =
+            $"INSERT INTO health_information (donor_id, donor_height, donor_weight, is_drug_user, visited_high_risk_country) " +
+            "VALUES(@donor_id, @donor_height, @donor_weight, @is_drug_user, @visited_high_risk_country); SELECT MAX(id) FROM blood_units;";
+
+        using (var connection = DBConnection())
         {
             try
             {
@@ -28,19 +51,20 @@ class HealthInformationDB : DBConnection, ICrud<HealthInformation>
         }
     }
 
-  
-
-    public void Delete(HealthInformation healthInformation)
+    public void Update(HealthInformation obj)
     {
-         var parameters = new DynamicParameters(healthInformation);
+        var parameters = new DynamicParameters(obj);
 
-        string query = "DELETE health_information WHERE id = @id";
+        string query = "UPDATE health_information " +
+                       "SET donor_id = @donor_id, donor_height = @donor_height, donor_weight = @donor_weight, " +
+                       "is_ = @appointment_date " +
+                       "WHERE id = @id";
 
-        using (var connection = DBConnect())
+        using (var connection = DBConnection())
         {
             try
             {
-                connection.Execute(query);
+                connection.Execute(query, parameters);
             }
             catch (System.Exception e)
             {
@@ -48,15 +72,23 @@ class HealthInformationDB : DBConnection, ICrud<HealthInformation>
             }
         }
     }
-    
 
-    public List<HealthInformation> Read()
+    public void Delete(HealthInformation obj)
     {
-        throw new NotImplementedException();
-    }
+        var parameters = new DynamicParameters(obj);
 
-    public void Update(HealthInformation obj)
-    {
-        throw new NotImplementedException();
+        string query = "DELETE health_information where id = @id";
+
+        using (var connection = DBConnection())
+        {
+            try
+            {
+                connection.Execute(query, parameters);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }
