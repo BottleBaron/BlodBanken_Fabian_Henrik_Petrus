@@ -29,12 +29,12 @@ class BookingDB : ICrud<Booking>
         }
     }
 
-    public int Create(Booking booking)
+    public int Create(Booking obj)
     {
-        var parameters = new DynamicParameters(booking);
+        var parameters = new DynamicParameters(obj);
 
         string query = "INSERT INTO bookings (donor_id, staff_id, is_done, appointment_date) " +
-        "OUTPUT INSERTED.id VALUES(@donor_id, @staff_id, @is_done, @appointment_date)";
+        "VALUES(@donor_id, @staff_id, @is_done, @appointment_date); SELECT MAX(id) FROM bookings";
 
         using (var connection = DBConnection())
         {
@@ -51,10 +51,10 @@ class BookingDB : ICrud<Booking>
     }
 
 
-    public void Update(Booking booking)
+    public void Update(Booking obj)
     {
   
-        var parameters = new DynamicParameters(booking);
+        var parameters = new DynamicParameters(obj);
 
         string query = "UPDATE bookings " +
         "SET donor_id = @donor_id, staff_id = @staff_id, is_done = @is_done, appointment_date = @appointment_date " +
@@ -73,9 +73,9 @@ class BookingDB : ICrud<Booking>
         }
     }
 
-    public void Delete(Booking booking)
+    public void Delete(Booking obj)
     {
-        var parameters = new DynamicParameters(booking);
+        var parameters = new DynamicParameters(obj);
 
         string query = "DELETE bookings where id = @id";
 

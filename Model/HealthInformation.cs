@@ -4,7 +4,7 @@ public class HealthInformation
 {
     // STRONG CONNECTION TO DONOR
     // DB Properties
-    public int id { get; set; }
+    public int id { get; }
     public int donor_id { get; set; }
     public int donor_height { get; set; }
     public int donor_weight { get; set; }

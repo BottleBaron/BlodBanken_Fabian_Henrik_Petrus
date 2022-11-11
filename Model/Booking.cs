@@ -3,7 +3,7 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 public class Booking
 {
     // DataBase Properties
-    public int id { get; set; }
+    public int id { get; }
     public int donor_id { get; set; }
     public int staff_id { get; set; }
     public DateTime appointment_date { get; set; }
