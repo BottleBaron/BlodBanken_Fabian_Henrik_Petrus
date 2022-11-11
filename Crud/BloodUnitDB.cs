@@ -6,7 +6,7 @@ class BloodUnitDB : ICrud<BloodUnit>
 {
     public MySqlConnection DBConnection()
     {
-        var connection = new MySqlConnection("Server=localhost;Database=blodbank;Uid=root;");
+        var connection = new MySqlConnection("Server=localhost;Database=blodbank;Uid=root;Pwd=samsis123");
         return connection;
     }
 
@@ -34,7 +34,7 @@ class BloodUnitDB : ICrud<BloodUnit>
         var parameters = new DynamicParameters(bloodUnit);
         
         string query = $"INSERT INTO blood_units (donor_id, booking_id, blood_type, is_consumed) " +
-        "OUTPUT INSERTED.id VALUES(@donor_id, @booking_id, @blood_type, @is_consumed)";
+        "VALUES(@donor_id, @booking_id, @blood_type, @is_consumed); SELECT MAX(id) FROM blood_units;";
 
         using (var connection = DBConnection())
         {
