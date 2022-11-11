@@ -2,7 +2,7 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 using Dapper;
 using MySqlConnector;
 
-class DBConnection
+internal class DBConnection
 {
       //Parent class that handles the server and user/pw for the database connection
       public MySqlConnection DBConnect()

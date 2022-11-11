@@ -2,20 +2,13 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 using Dapper;
 using MySqlConnector;
 
-class BookingDB :DBConnection, ICrud<Booking>
+internal class BookingDB :DBConnection, ICrud<Booking>
 {
-    public MySqlConnection DBConnection()
-    {
-        var connection = new MySqlConnection("Server=localhost;Database=blodbank;Uid=root;");
-        return connection;
-    }
-
-    // READ CREATE DELETE UPDATE
     public List<Booking> Read()
     {
         string query = "SELECT * FROM bookings";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -36,7 +29,7 @@ class BookingDB :DBConnection, ICrud<Booking>
         string query = "INSERT INTO bookings (donor_id, staff_id, is_done, appointment_date) " +
         "VALUES(@donor_id, @staff_id, @is_done, @appointment_date); SELECT MAX(id) FROM bookings";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -59,7 +52,7 @@ class BookingDB :DBConnection, ICrud<Booking>
         "SET donor_id = @donor_id, staff_id = @staff_id, is_done = @is_done, appointment_date = @appointment_date " +
         "WHERE id = @id";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -78,7 +71,7 @@ class BookingDB :DBConnection, ICrud<Booking>
 
         string query = "DELETE bookings where id = @id";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {

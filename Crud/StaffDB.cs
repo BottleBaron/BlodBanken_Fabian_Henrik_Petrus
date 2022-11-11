@@ -2,19 +2,13 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 using Dapper;
 using MySqlConnector;
 
-public class StaffDB : ICrud<Staff>
+internal class StaffDB : DBConnection, ICrud<Staff>
 {
-    public MySqlConnection DBConnection()
-    {
-        var connection = new MySqlConnection("Server=localhost;Database=blodbank;Uid=root;");
-        return connection;
-    }
-
     public List<Staff> Read()
     {
         string query = "SELECT * FROM staff";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -35,7 +29,7 @@ public class StaffDB : ICrud<Staff>
         string query = "INSERT INTO staff (name, login_name, password) " +
                        "VALUES(@name, login_name, password); SELECT MAX(id) FROM bookings";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -57,7 +51,7 @@ public class StaffDB : ICrud<Staff>
                        "SET name = @name, login_name = @login_name, password = @password" +
                        "WHERE id = @id";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -76,7 +70,7 @@ public class StaffDB : ICrud<Staff>
 
         string query = "DELETE staff where id = @id";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {

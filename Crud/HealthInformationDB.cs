@@ -3,19 +3,13 @@ using BlodBanken_Fabian_Henrik_Petrus;
 using MySqlConnector;
 using Dapper;
 
-class MyClass : ICrud<HealthInformation>
+internal class HealthInformationDB : DBConnection, ICrud<HealthInformation>
 {
-    public MySqlConnection DBConnection()
-    {
-        var connection = new MySqlConnection("Server=localhost;Database=blodbank;Uid=root;");
-        return connection;
-    }
-
     public List<HealthInformation> Read()
     {
         string query = "SELECT * FROM health_information";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -37,7 +31,7 @@ class MyClass : ICrud<HealthInformation>
             $"INSERT INTO health_information (donor_id, donor_height, donor_weight, is_drug_user, visited_high_risk_country) " +
             "VALUES(@donor_id, @donor_height, @donor_weight, @is_drug_user, @visited_high_risk_country); SELECT MAX(id) FROM blood_units;";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -60,7 +54,7 @@ class MyClass : ICrud<HealthInformation>
                        "is_ = @appointment_date " +
                        "WHERE id = @id";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -79,7 +73,7 @@ class MyClass : ICrud<HealthInformation>
 
         string query = "DELETE health_information where id = @id";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {

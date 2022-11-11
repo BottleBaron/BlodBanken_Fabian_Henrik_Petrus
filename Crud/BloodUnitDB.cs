@@ -2,10 +2,8 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 using Dapper;
 using MySqlConnector;
 
-class BloodUnitDB : DBConnection, ICrud<BloodUnit>
+internal class BloodUnitDB : DBConnection, ICrud<BloodUnit>
 {
-    
-
     public List<BloodUnit> Read()
     {
         string query = "SELECT * FROM blood_units";

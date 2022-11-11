@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Dapper;
 using MySqlConnector;
 
-class MedicinDB : DBConnection, ICrud<Medicin>
+internal class MedicinDB : DBConnection, ICrud<Medicin>
 {
     public int Create(Medicin obj)
     {

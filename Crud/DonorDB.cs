@@ -2,10 +2,8 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 using Dapper;
 using MySqlConnector;
 
-class DonorDB : DBConnection, ICrud<Donor>
+internal class DonorDB : DBConnection, ICrud<Donor>
 {
-
-
     public List<Donor> Read()
     {
         string query = "SELECT * FROM donors";

@@ -18,11 +18,6 @@ public class HealthInformation
     
     public HealthInformation()
     {
-        List<Medicin> tempList = SQLWriter.sp_SelectTable<Medicin>("*", $"medicin WHERE id = {id}");
-        foreach (var medicin in tempList)
-        {
-            Medicine_List.Add(medicin.medicine);
-        }
     }
 
    public HealthInformation(int donorId, int donorHeight, int donorWeight, bool isDrugUser, bool haveVisitedHighRiskCountry)
