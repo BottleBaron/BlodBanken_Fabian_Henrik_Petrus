@@ -110,7 +110,23 @@ class StaffGUI
 
     private void SendRequestMenu()
     {
-        throw new NotImplementedException();
+        BloodTypeKey bloodTypeKey = new();
+
+        Console.WriteLine("Select a bloodtype by entering a digit to request donations from registrered donors: ");
+
+        for (int i = 1; i < bloodTypeKey.BloodType.Count; i++)
+        {
+            Console.WriteLine($"{i}, {bloodTypeKey.BloodType[i]}");
+        }
+
+        string? selectedBloodType = Console.ReadLine();
+        if (Int32.TryParse(selectedBloodType, out int result))
+        {
+            Console.WriteLine(bloodTypeKey.BloodType[result]);
+        }
+
+
+        //välj blodtyp via meny, hämta från databas alla med denna blodtyp, räkna dessa, skriv ut en sträng "vi har skickat mail till X antal personer med angiven blodtyp Z"
     }
 }
 
