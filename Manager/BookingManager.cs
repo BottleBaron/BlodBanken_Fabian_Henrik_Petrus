@@ -6,7 +6,8 @@ internal class BookingManager
 
     public List<Booking> GetPastBookingsByStaff(Staff staffMember)
     {
-        List<Booking> relatedBookings = _bookingDb.SelectWhere("id", staffMember.id);
+        string column = "staff_id";
+        List<Booking> relatedBookings = _bookingDb.SelectByStaffId(staffMember);
 
         // Checks if appointment date has passed
         foreach (var booking in relatedBookings)

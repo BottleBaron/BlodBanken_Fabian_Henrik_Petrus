@@ -1,6 +1,5 @@
 namespace BlodBanken_Fabian_Henrik_Petrus;
 
-// Possibly better to move to GUI or Interface at a later stage to maintain good design principles
 public class BloodTypeKey
 {
     public Dictionary<int, string> BloodType = new()

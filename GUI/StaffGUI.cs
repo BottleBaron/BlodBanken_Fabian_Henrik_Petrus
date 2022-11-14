@@ -27,6 +27,10 @@ class StaffGUI
             "2.) Confirm a Donation",
             "3.) Send Requests To Donors"
             };
+            foreach (var line in menuString)
+            {
+                Console.WriteLine(line);
+            }
             var key = Console.ReadKey();
             Console.Clear();
 
@@ -92,7 +96,11 @@ class StaffGUI
             Console.Write("Booking Selected. Please enter the number of units donated: ");
             string? stringUnits = Console.ReadLine();
 
-            if (Int32.TryParse(stringUnits, out int result)) unitsDonated = result;
+            if (Int32.TryParse(stringUnits, out int result)) 
+            {
+                unitsDonated = result;
+                break;
+            }
             else continue;
         }
 
