@@ -54,7 +54,7 @@ internal class Program
             }
         }
 
-        string sqlString = SQLWriter.FormatIntoSqlString(donorData);
+        //string sqlString = SQLWriter.FormatIntoSqlString(donorData);
         //int id = myDatamanager.RegisterDonor(sqlString);
         Console.WriteLine(id);
 
@@ -79,11 +79,11 @@ internal class Program
         //dataManager.SaveBloodUnits(2, 1);
 
         //Works
-        List<Donor> AB = dataManager.GetDonors(5);
-        foreach (var item in AB)
-        {
-            Console.WriteLine(item);
-        }
+        //List<Donor> AB = dataManager.GetDonors(5);
+        // foreach (var item in AB)
+        // {
+        //     Console.WriteLine(item);
+        // }
 
 
 

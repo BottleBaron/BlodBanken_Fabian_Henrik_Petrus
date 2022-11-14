@@ -2,19 +2,13 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 using Dapper;
 using MySqlConnector;
 
-class DonorDB : ICrud<Donor>
+internal class DonorDB : DBConnection, ICrud<Donor>
 {
-    public MySqlConnection DBConnection()
-    {
-        var connection = new MySqlConnection("Server=localhost;Database=blodbank;Uid=root;");
-        return connection;
-    }
-
     public List<Donor> Read()
     {
         string query = "SELECT * FROM donors";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -23,20 +17,19 @@ class DonorDB : ICrud<Donor>
             }
             catch (System.Exception)
             {
-
                 throw;
             }
         }
     }
 
-    public int Create(Donor donor)
+    public int Create(Donor obj)
     {
-        var parameters = new DynamicParameters(donor);
+        var parameters = new DynamicParameters(obj);
 
         string query = "INSERT INTO donors (name, phone_number, blood_type, adress, date_of_birth) " +
-        "OUTPUT INSERTED.id VALUES(@name, @phone_number, @blood_type, @adress, @date_of_birth)";
+        "VALUES(@name, @phone_number, @blood_type, @adress, @date_of_birth); SELECT MAX(id) FROM donors";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -51,15 +44,15 @@ class DonorDB : ICrud<Donor>
 
     }
 
-    public void Update(Donor donor)
+    public void Update(Donor obj)
     {
-        var parameters = new DynamicParameters(donor);
+        var parameters = new DynamicParameters(obj);
 
         string query = "UPDATE donors " +
         "SET name = @name, phone_number = @phone_number, blood_type = @blood_type, adress = @adress, date_of_birth = @date_of_birth " +
         "WHERE id = @id";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -72,13 +65,13 @@ class DonorDB : ICrud<Donor>
         }
     }
 
-    public void Delete(Donor donor)
+    public void Delete(Donor obj)
     {
-        var parameters = new DynamicParameters(donor);
+        var parameters = new DynamicParameters(obj);
 
         string query = "DELETE donors WHERE id = @id";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {

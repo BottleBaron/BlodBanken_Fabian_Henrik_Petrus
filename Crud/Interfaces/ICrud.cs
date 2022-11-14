@@ -4,7 +4,6 @@ using MySqlConnector;
 
 public interface ICrud<T>
 {
-    MySqlConnection DBConnection();
     List<T> Read();
     int Create(T obj);
     void Update(T obj);

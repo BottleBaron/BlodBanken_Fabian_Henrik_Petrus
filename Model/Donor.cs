@@ -3,7 +3,7 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 public class Donor
 {
     // DataBase Properties
-    public int id { get; set; }
+    public int id { get; }
     public string name { get; set; }
     public string phone_number { get; set; }
     public int blood_type { get; set; }

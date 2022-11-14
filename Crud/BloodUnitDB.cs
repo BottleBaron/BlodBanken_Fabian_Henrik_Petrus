@@ -2,19 +2,13 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 using Dapper;
 using MySqlConnector;
 
-class BloodUnitDB : ICrud<BloodUnit>
+internal class BloodUnitDB : DBConnection, ICrud<BloodUnit>
 {
-    public MySqlConnection DBConnection()
-    {
-        var connection = new MySqlConnection("Server=localhost;Database=blodbank;Uid=root;");
-        return connection;
-    }
-
     public List<BloodUnit> Read()
     {
         string query = "SELECT * FROM blood_units";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -29,14 +23,14 @@ class BloodUnitDB : ICrud<BloodUnit>
         }
     }
 
-    public int Create(BloodUnit bloodUnit)
+    public int Create(BloodUnit obj)
     {
-        var parameters = new DynamicParameters(bloodUnit);
+        var parameters = new DynamicParameters(obj);
         
         string query = $"INSERT INTO blood_units (donor_id, booking_id, blood_type, is_consumed) " +
-        "OUTPUT INSERTED.id VALUES(@donor_id, @booking_id, @blood_type, @is_consumed)";
+        "VALUES(@donor_id, @booking_id, @blood_type, @is_consumed); SELECT MAX(id) FROM blood_units;";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -50,15 +44,15 @@ class BloodUnitDB : ICrud<BloodUnit>
         }
     }
 
-    public void Update(BloodUnit bloodUnit)
+    public void Update(BloodUnit obj)
     {
-        var parameters = new DynamicParameters(bloodUnit);
+        var parameters = new DynamicParameters(obj);
 
         string query = $"UPDATE blood_units " +
         "SET donor_id = @donor_id, booking_id = @booking_id, blood_type = @blood_type, is_consumed = @is_consumed " +
         "WHERE id = @id";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
@@ -71,13 +65,13 @@ class BloodUnitDB : ICrud<BloodUnit>
         }
     }
 
-    public void Delete(BloodUnit bloodUnit)
+    public void Delete(BloodUnit obj)
     {
-        var parameters = new DynamicParameters(bloodUnit);
+        var parameters = new DynamicParameters(obj);
 
         string query = "DELETE blood_units WHERE id = @id";
 
-        using (var connection = DBConnection())
+        using (var connection = DBConnect())
         {
             try
             {
