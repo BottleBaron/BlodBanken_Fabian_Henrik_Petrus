@@ -69,13 +69,36 @@ internal class BookingDB :DBConnection, ICrud<Booking>
     {
         var parameters = new DynamicParameters(obj);
 
-        string query = "DELETE bookings where id = @id";
+        string query = "DELETE bookings WHERE id = @id";
 
         using (var connection = DBConnect())
         {
             try
             {
                 connection.Execute(query, parameters);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+    }
+
+    public List<Booking> SelectWhere(object column, object identifyer)
+    {
+        var parameters = new DynamicParameters();
+        parameters.AddDynamicParams(column);
+        parameters.AddDynamicParams(identifyer);
+
+        string query = "SELECT * FROM bookings WHERE @column = @identifyer";
+
+        using (var connection = DBConnect())
+        {
+            try
+            {
+                var result = connection.Query<Booking>(query, parameters).ToList();
+                return result;
             }
             catch (System.Exception e)
             {
