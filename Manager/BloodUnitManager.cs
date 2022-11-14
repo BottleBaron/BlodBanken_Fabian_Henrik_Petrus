@@ -36,4 +36,20 @@ internal class BloodUnitManager
 
         return bloodUnitDict;
     }
+
+    public void EnterNewBloodUnits(int amountOfUnits, Booking booking)
+    {
+        for (int i = 0; i < amountOfUnits; i++)
+        {
+            BloodUnit bU = new()
+            {
+                donor_id = booking.donor_id,
+                booking_id = booking.id,
+                blood_type = booking.BloodType,
+                is_consumed = false
+            };
+
+            _bloodUnitDb.Create(bU);
+        }
+    }
 }

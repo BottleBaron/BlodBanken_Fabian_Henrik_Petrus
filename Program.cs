@@ -6,22 +6,26 @@ internal class Program
     {
         // Testing Crud
 
-        BloodUnitDB BuDB = new();
-        BloodUnit bU = new()
-        {
-            donor_id = 1,
-            booking_id = 1,
-            blood_type = 5,
-            is_consumed = false
-        };
-        int id = BuDB.Create(bU);
-        Console.WriteLine(id);
+        StaffGUI staffGUI = new();
+        staffGUI.MainMenu();
 
-        List<BloodUnit> BUList = BuDB.Read();
-        foreach (var item in BUList)
-        {
-            Console.WriteLine(item.ToString());
-        }
+
+        // BloodUnitDB BuDB = new();
+        // BloodUnit bU = new()
+        // {
+        //     donor_id = 1,
+        //     booking_id = 1,
+        //     blood_type = 5,
+        //     is_consumed = false
+        // };
+        // int id = BuDB.Create(bU);
+        // Console.WriteLine(id);
+
+        // List<BloodUnit> BUList = BuDB.Read();
+        // foreach (var item in BUList)
+        // {
+        //     Console.WriteLine(item.ToString());
+        // }
 
         
         Environment.Exit(0);
@@ -56,7 +60,7 @@ internal class Program
 
         //string sqlString = SQLWriter.FormatIntoSqlString(donorData);
         //int id = myDatamanager.RegisterDonor(sqlString);
-        Console.WriteLine(id);
+        //Console.WriteLine(id);
 
 
         //For testing
