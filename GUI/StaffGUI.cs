@@ -124,7 +124,7 @@ class StaffGUI
         string? selectedBloodType = Console.ReadLine();
         if (Int32.TryParse(selectedBloodType, out int result))
         {
-            Console.WriteLine($"An email have been sent out to all donors with chosen bloodtype {bloodTypeKey.BloodType[result]}.");
+            Console.WriteLine($"A letter have been sent out to all donors with chosen bloodtype {bloodTypeKey.BloodType[result]}.");
             Console.ReadKey();
         }
     }
