@@ -85,13 +85,11 @@ internal class BookingDB :DBConnection, ICrud<Booking>
 
     }
 
-    public List<Booking> SelectWhere(object column, object identifyer)
+    public List<Booking> SelectByStaffId(Staff obj)
     {
-        var parameters = new DynamicParameters();
-        parameters.AddDynamicParams(column);
-        parameters.AddDynamicParams(identifyer);
+        var parameters = new DynamicParameters(obj);
 
-        string query = "SELECT * FROM bookings WHERE @column = @identifyer";
+        string query = "SELECT * FROM bookings WHERE staff_id = @id";
 
         using (var connection = DBConnect())
         {

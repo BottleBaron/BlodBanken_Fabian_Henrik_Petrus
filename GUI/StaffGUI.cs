@@ -27,6 +27,10 @@ class StaffGUI
             "2.) Confirm a Donation",
             "3.) Send Requests To Donors"
             };
+            foreach (var line in menuString)
+            {
+                Console.WriteLine(line);
+            }
             var key = Console.ReadKey();
             Console.Clear();
 
@@ -92,7 +96,11 @@ class StaffGUI
             Console.Write("Booking Selected. Please enter the number of units donated: ");
             string? stringUnits = Console.ReadLine();
 
-            if (Int32.TryParse(stringUnits, out int result)) unitsDonated = result;
+            if (Int32.TryParse(stringUnits, out int result)) 
+            {
+                unitsDonated = result;
+                break;
+            }
             else continue;
         }
 
@@ -102,7 +110,23 @@ class StaffGUI
 
     private void SendRequestMenu()
     {
-        throw new NotImplementedException();
+        BloodTypeKey bloodTypeKey = new();
+
+        Console.WriteLine("Select a bloodtype by entering a digit to request donations from registrered donors: \n");
+
+        for (int i = 1; i < bloodTypeKey.BloodType.Count; i++)
+        {
+            Console.WriteLine($"{i}, {bloodTypeKey.BloodType[i]}");
+        }
+
+        Console.Write("\nYour choice: ");
+
+        string? selectedBloodType = Console.ReadLine();
+        if (Int32.TryParse(selectedBloodType, out int result))
+        {
+            Console.WriteLine($"An email have been sent out to all donors with chosen bloodtype {bloodTypeKey.BloodType[result]}.");
+            Console.ReadKey();
+        }
     }
 }
 
