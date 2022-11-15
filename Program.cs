@@ -4,157 +4,49 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        // Testing Crud
+        DonorGUI donorGui = new();
+        StaffGUI staffGui = new();
+        StaffManager staffMngr = new();
 
-        StaffGUI staffGUI = new();
-        staffGUI.MainMenu();
-
-
-        // BloodUnitDB BuDB = new();
-        // BloodUnit bU = new()
-        // {
-        //     donor_id = 1,
-        //     booking_id = 1,
-        //     blood_type = 5,
-        //     is_consumed = false
-        // };
-        // int id = BuDB.Create(bU);
-        // Console.WriteLine(id);
-
-        // List<BloodUnit> BUList = BuDB.Read();
-        // foreach (var item in BUList)
-        // {
-        //     Console.WriteLine(item.ToString());
-        // }
-
-        
-        Environment.Exit(0);
-
-        DataManager myDatamanager = new();
-        Donor newDonor = new();
-        List<string> donorData = new();
-        BloodTypeKey bloodTypeKey = new();
-
-        Console.WriteLine("name?");
-        donorData.Add("'" + Console.ReadLine() + "'");
-
-        Console.WriteLine("address?");
-        donorData.Add("'" + Console.ReadLine() + "'");
-
-        Console.WriteLine("phone number?");
-        donorData.Add("'" + Console.ReadLine() + "'");
-
-        Console.WriteLine("date of birth?");
-        donorData.Add("'" + Console.ReadLine() + "'");
-
-        Console.WriteLine("blood type?");
-        string bloodType = Console.ReadLine();
-
-        for (int i = 0; i < bloodTypeKey.BloodType.Count; i++)
+        while (true)
         {
-            if (bloodType == bloodTypeKey.BloodType[i])
+            Console.Clear();
+
+            string[] menu = new string[]
             {
-                donorData.Add("'" + i + "'");
+                "-- BLOOD BANK --",
+                "1). Become a donor",
+                "2). Log in as a staff member",
+                "3). Quit"
+            };
+            foreach (var line in menu)
+            {
+                Console.WriteLine(line);
             }
-        }
+            var keyPress = Console.ReadKey();
 
-        //string sqlString = SQLWriter.FormatIntoSqlString(donorData);
-        //int id = myDatamanager.RegisterDonor(sqlString);
-        //Console.WriteLine(id);
-
-
-        //For testing
-        DataManager dataManager = new();
-        // dataManager.CreateBooking("1, 1, false, NULL");
-
-        // Works
-        // List<BloodUnit> listAllBloodUnits = dataManager.GetAllBloodUnits();
-
-        // foreach (var bloodUnit in listAllBloodUnits)
-        // {
-        //     if(!bloodUnit.is_consumed) Console.WriteLine(bloodUnit.ToString());
-        // }
-
-        // Works
-        // Staff activeStaffMember = dataManager.TryLogin("3rnie", "stinky123");
-        // Console.WriteLine(activeStaffMember.id + activeStaffMember.name);
-
-        // Works
-        //dataManager.SaveBloodUnits(2, 1);
-
-        //Works
-        //List<Donor> AB = dataManager.GetDonors(5);
-        // foreach (var item in AB)
-        // {
-        //     Console.WriteLine(item);
-        // }
-
-
-
-        int donorHeight, donorWeight;
-        bool isDrugUser, visitedHighRiskCountry;
-
-        Console.WriteLine("What is your height in centimeters");
-        donorHeight = ForceInt(Console.ReadLine());
-
-        Console.WriteLine("What is your weight in kilograms");
-        donorWeight = ForceInt(Console.ReadLine());
-
-        // Console.WriteLine("Have you been using drugs\n[Y]\n[N]");
-        // isDrugUser = ReturnBool();
-        // Console.WriteLine("Have you been abroad in a high risk country\n[Y]\n[N]");
-        // visitedHighRiskCountry = ReturnBool();
-
-        HealthInformation myHealthinformation = new();
-        //Spara till 
-        List<Medicin> myMedicineList = new List<Medicin>();
-
-
-
-
-    }
-
-    public static int ForceInt(string inputString)
-    {
-
-        int result;
-        if (int.TryParse(inputString, out result))
-        {
-            return result;
-        }
-
-        else
-        {
-            while (true)
+            if (keyPress.Key == ConsoleKey.D1) donorGui.MainMenu();
+            else if (keyPress.Key == ConsoleKey.D2) 
             {
-                Console.WriteLine("You have not entered a valid number, please try again");
-                inputString = Console.ReadLine();
-                if (int.TryParse(inputString, out result))
+                Console.Clear();
+
+                Console.Write("Please enter your username:");
+                string nameInput = Console.ReadLine();
+                Console.Write("Please enter your password:");
+                string passInput = Console.ReadLine();
+
+                Staff staffMember = staffMngr.TryLogin(nameInput, passInput);
+
+                if(staffMember != null) staffGui.MainMenu(staffMember);
+                else
                 {
-                    return result;
+                    Console.WriteLine("Invalid input. Please try again.");
+                    Console.ReadKey();
+                    continue;
                 }
             }
+            else if (keyPress.Key == ConsoleKey.D3) Environment.Exit(0);
+            else continue;
         }
     }
-
-    public static bool? ReturnBool(ConsoleKeyInfo inputKey)
-    {
-        if (inputKey.Key == ConsoleKey.Y)
-        {
-            return true;
-        }
-        else if (inputKey.Key == ConsoleKey.N)
-        {
-            return false;
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-
-
-
-
 }

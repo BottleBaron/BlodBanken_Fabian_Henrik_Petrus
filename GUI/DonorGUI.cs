@@ -131,18 +131,18 @@ class DonorGUI
       
     }
 
-    private List<string> RegisterMedicines()
+ //   private List<string> RegisterMedicines()
 
-    {   
-        List<string> medicineList = new();
-        MedicinManager medicinManager = new();
-        string medicine;
-        medicine = Console.ReadLine();
-        if (medicinManager.VerifyMedicine(medicine)== true)
-        {
-            medicineList.Add(medicine);
-        }
-    }
+    // {   
+    //     List<string> medicineList = new();
+    //     MedicinManager medicinManager = new();
+    //     string medicine;
+    //     medicine = Console.ReadLine();
+    //     if (medicinManager.VerifyMedicine(medicine)== true)
+    //     {
+    //         medicineList.Add(medicine);
+    //     }
+    // }
 
     private void RegisterDonor()
     {
