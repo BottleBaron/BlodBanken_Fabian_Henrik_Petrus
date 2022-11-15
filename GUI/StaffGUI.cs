@@ -112,21 +112,21 @@ class StaffGUI
     {
         BloodTypeKey bloodTypeKey = new();
 
-        Console.WriteLine("Select a bloodtype by entering a digit to request donations from registrered donors: ");
+        Console.WriteLine("Select a bloodtype by entering a digit to request donations from registrered donors: \n");
 
         for (int i = 1; i < bloodTypeKey.BloodType.Count; i++)
         {
             Console.WriteLine($"{i}, {bloodTypeKey.BloodType[i]}");
         }
 
+        Console.Write("\nYour choice: ");
+
         string? selectedBloodType = Console.ReadLine();
         if (Int32.TryParse(selectedBloodType, out int result))
         {
-            Console.WriteLine(bloodTypeKey.BloodType[result]);
+            Console.WriteLine($"An email have been sent out to all donors with chosen bloodtype {bloodTypeKey.BloodType[result]}.");
+            Console.ReadKey();
         }
-
-
-        //välj blodtyp via meny, hämta från databas alla med denna blodtyp, räkna dessa, skriv ut en sträng "vi har skickat mail till X antal personer med angiven blodtyp Z"
     }
 }
 
