@@ -80,6 +80,7 @@ internal class DonorManager
             year = Convert.ToInt32(dateOfBirth.Substring(0, 4));
             month = Convert.ToInt32(dateOfBirth.Substring(4, 2));
             day = Convert.ToInt32(dateOfBirth.Substring(6, 2));
+            
             //Assign ints to a Dateonly. If success the date is correct. 
             DateOnly dateOfBirthDO = new(year,month,day);
             return true;

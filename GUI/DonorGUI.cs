@@ -12,7 +12,7 @@ class DonorGUI
         ConsoleKey selector = Console.ReadKey(true).Key;
         if (selector == ConsoleKey.D1 || selector == ConsoleKey.NumPad1)
         {
-
+            RegisterDonor();
         }
 
 
@@ -21,6 +21,127 @@ class DonorGUI
 
 
 
+    }
+
+    private void FillInHealthSurvey()
+    
+    { 
+        HealthInfoManager healthInfoManager = new HealthInfoManager();
+        string donorHeightStr,donorWeightStr;
+        int donorHeight, donorWeight;
+        bool isDrugUser, visitedHighRiskCountry,isUsingMedicine;
+        List <string> medicineList = new List<string>();
+        
+        while (true)
+        {
+            
+        
+        Console.WriteLine("Vad är din längd i centimeter");
+        donorHeightStr = Console.ReadLine();
+        if (healthInfoManager.VerifyHeight(donorHeightStr)== true)
+        {   donorHeight = Convert.ToInt32(donorHeightStr);
+            break;
+        }
+
+        else
+        {
+            Console.WriteLine("Felaktig inmatning");
+            
+        }
+        }
+
+        while (true)
+        {
+            
+        
+        Console.WriteLine("Vad är din vikt i kilogram?");
+        donorWeightStr = Console.ReadLine();
+         
+         if (healthInfoManager.VerifyWeight(donorWeightStr)== true)
+        {   donorWeight = Convert.ToInt32(donorWeightStr);
+            break;
+        }
+
+        else
+        {
+            Console.WriteLine("Felaktig inmatning");
+            
+        }
+        }
+        while (true)
+        {        
+        Console.WriteLine("Have you been using drugs\n[Y]\n[N]");
+        ConsoleKey selector = Console.ReadKey(true).Key;
+        
+        if (healthInfoManager.VerifyYesOrNo(selector) != null)
+        {
+            isDrugUser = (bool)healthInfoManager.VerifyYesOrNo(selector);
+            break;
+        } 
+
+        else
+        {
+            Console.WriteLine("Felaktigt svar");
+        }
+
+        }
+         while (true)
+        {        
+        Console.WriteLine("Har du nyligen varit utomlands i ett högriskland?\n[Y]\n[N]");
+        ConsoleKey selector = Console.ReadKey(true).Key;
+        
+        if (healthInfoManager.VerifyYesOrNo(selector) != null)
+        {
+            visitedHighRiskCountry = (bool)healthInfoManager.VerifyYesOrNo(selector);
+            break;
+        } 
+
+        else
+        {
+            Console.WriteLine("Felaktigt svar");
+        }
+
+        }
+
+
+
+        while (true)
+        {
+            Console.WriteLine("Tar du några mediciner\n[Y]\n[N]");
+            ConsoleKey selector = Console.ReadKey(true).Key;
+
+            if (healthInfoManager.VerifyYesOrNo(selector) != null)
+            {
+                isUsingMedicine = (bool)healthInfoManager.VerifyYesOrNo(selector);
+                if (isUsingMedicine == true)
+                {
+                    
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("Felaktig inmatning");
+            }
+        }
+        HealthInformation myHealthinformation = new();
+        //Spara till 
+        List<Medicin> myMedicineList = new List<Medicin>();
+
+      
+    }
+
+    private List<string> RegisterMedicines()
+
+    {   
+        List<string> medicineList = new();
+        MedicinManager medicinManager = new();
+        string medicine;
+        medicine = Console.ReadLine();
+        if (medicinManager.VerifyMedicine(medicine)== true)
+        {
+            medicineList.Add(medicine);
+        }
     }
 
     private void RegisterDonor()
