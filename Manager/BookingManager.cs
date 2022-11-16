@@ -25,7 +25,7 @@ internal class BookingManager
         Random random = new Random();
         
         List<Staff> listOfStaff = staffdb.Read();
-        int rStaffId = random.Next(listOfStaff.Count);
+        int rStaffId = random.Next(1,listOfStaff.Count);
         
         Booking newBooking = new Booking()
         {

@@ -136,7 +136,7 @@ class DonorGUI
             if (medicinManager.VerifyMedicine(medicine) == true)
             {
                 medicineList.Add(medicine);
-                Console.WriteLine(medicine + "added. Press [Y] to add another medicine or any other key to stop ");
+                Console.WriteLine(medicine + " added. Press [Y] to add another medicine or any other key to stop ");
                 ConsoleKey selector = Console.ReadKey(true).Key;
                 if (selector == ConsoleKey.Y)
                 {
