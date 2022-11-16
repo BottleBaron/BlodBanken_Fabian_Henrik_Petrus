@@ -130,7 +130,7 @@ class DonorGUI
       
     }
 
- //   private List<string> RegisterMedicines()
+    private List<string> RegisterMedicines()
 
     {   
         List<string> medicineList = new();
