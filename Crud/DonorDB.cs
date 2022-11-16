@@ -26,8 +26,8 @@ internal class DonorDB : DBConnection, ICrud<Donor>
     {
         var parameters = new DynamicParameters(obj);
 
-        string query = "INSERT INTO donors (name, phone_number, blood_type, adress, date_of_birth) " +
-        "VALUES(@name, @phone_number, @blood_type, @adress, @date_of_birth); SELECT MAX(id) FROM donors";
+        string query = "INSERT INTO donors (name, phone_number, blood_type, address, date_of_birth) " +
+        "VALUES(@name, @phone_number, @blood_type, @address, @date_of_birth); SELECT MAX(id) FROM donors";
 
         using (var connection = DBConnect())
         {
@@ -49,7 +49,7 @@ internal class DonorDB : DBConnection, ICrud<Donor>
         var parameters = new DynamicParameters(obj);
 
         string query = "UPDATE donors " +
-        "SET name = @name, phone_number = @phone_number, blood_type = @blood_type, adress = @adress, date_of_birth = @date_of_birth " +
+        "SET name = @name, phone_number = @phone_number, blood_type = @blood_type, address = @address, date_of_birth = @date_of_birth " +
         "WHERE id = @id";
 
         using (var connection = DBConnect())

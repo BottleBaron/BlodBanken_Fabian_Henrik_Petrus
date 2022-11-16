@@ -54,4 +54,16 @@ public bool? VerifyYesOrNo(ConsoleKey selector)
     }
 }
 
+
+
+public int SaveHealthInformationToDB (HealthInformation newHealthInformation)
+{
+    int healthInformationId;
+    healthInformationId = _healthInfoDb.Create(newHealthInformation);
+    return healthInformationId;
+}
+
+
+
+
 }

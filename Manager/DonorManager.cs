@@ -72,7 +72,7 @@ internal class DonorManager
 
 
     public bool ValidateDateOfBirth(string dateOfBirth)
-{   
+    {   
             try
             {
             //Converts string to ints
@@ -80,7 +80,7 @@ internal class DonorManager
             year = Convert.ToInt32(dateOfBirth.Substring(0, 4));
             month = Convert.ToInt32(dateOfBirth.Substring(4, 2));
             day = Convert.ToInt32(dateOfBirth.Substring(6, 2));
-            
+
             //Assign ints to a Dateonly. If success the date is correct. 
             DateOnly dateOfBirthDO = new(year,month,day);
             return true;
@@ -92,8 +92,37 @@ internal class DonorManager
                 
                 return false;
             }                   
+    }
 
-}
+
+    public bool ValidateBloodGroup(char keyPress)
+    {
+        try
+        {
+            int bloodType = Convert.ToInt32(keyPress.ToString());
+          if (bloodType >=1 && bloodType <=8)
+        {
+            return true;
+        }
+        else return false;
+        }
+        catch (System.Exception)
+        {
+            
+            
+            return false;
+        }
+    }
+
+    
+    public int SaveDonorToDB(Donor newDonor)
+    {
+        int savedDonorId;
+        savedDonorId = _donorDb.Create(newDonor);
+        return savedDonorId;
+
+    }
+
 
 
 
