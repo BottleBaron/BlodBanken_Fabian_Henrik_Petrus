@@ -6,16 +6,11 @@ internal class BookingManager
 
     public List<Booking> GetPastBookingsByStaff(Staff staffMember)
     {
-        string column = "staff_id";
         List<Booking> relatedBookings = _bookingDb.SelectByStaffId(staffMember);
 
-        // Checks if appointment date has passed
-        foreach (var booking in relatedBookings)
-        {
-            if (booking.appointment_date > DateTime.Now || booking.is_done) relatedBookings.Remove(booking);
-        }
+        relatedBookings.RemoveAll(booking => booking.appointment_date > DateTime.Now || booking.is_done);
 
-        return relatedBookings;
+       return relatedBookings;
     }
 
     public void CheckBooking(Booking booking)

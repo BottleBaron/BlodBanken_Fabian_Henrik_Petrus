@@ -15,8 +15,10 @@ class StaffGUI
 {
     Staff loggedInStaffMember = new();
 
-    public void MainMenu()
+    public void MainMenu(Staff staffMember)
     {
+        loggedInStaffMember = staffMember;
+
         while (true)
         {
             Console.Clear();
@@ -86,6 +88,7 @@ class StaffGUI
             {
                 Console.WriteLine("Error: Entry was not valid or did not match a booking");
                 Console.ReadKey();
+                return;
             }
         }
 

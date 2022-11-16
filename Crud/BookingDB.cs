@@ -103,6 +103,5 @@ internal class BookingDB :DBConnection, ICrud<Booking>
                 throw e;
             }
         }
-
     }
 }
