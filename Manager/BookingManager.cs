@@ -18,4 +18,23 @@ internal class BookingManager
         booking.is_done = true;
         _bookingDb.Update(booking);
     }
+
+    public void CreateSpaghettiBooking(int id)
+    {
+        var staffdb = new StaffDB();
+        Random random = new Random();
+        
+        List<Staff> listOfStaff = staffdb.Read();
+        int rStaffId = random.Next(listOfStaff.Count);
+        
+        Booking newBooking = new Booking()
+        {
+            donor_id = id,
+            staff_id = rStaffId,
+            appointment_date = DateTime.Now.AddDays(7).AddMinutes(DateTime.Now.Minute % 15 == 0 ? 0 : 15 - DateTime.Now.Minute % 15),
+            is_done = false
+        };
+
+        _bookingDb.Create(newBooking);
+    }
 }

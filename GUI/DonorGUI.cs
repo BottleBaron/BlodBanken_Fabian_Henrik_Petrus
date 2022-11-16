@@ -21,6 +21,7 @@ class DonorGUI
         HealthInfoManager healthInfoManager = new HealthInfoManager();
         MedicinManager medicinManager = new();
         HealthInformation newHealthInformation = new();
+        BookingManager bookingManager = new();
         List<string> medicineList = new List<string>();
 
         bool isUsingMedicine;
@@ -108,8 +109,10 @@ class DonorGUI
         //Save to DB
         int healthInformationId = healthInfoManager.SaveHealthInformationToDB(newHealthInformation);
 
+        
         // TODO: Hämta donor id, och skapa en bokning 
         // TODO: Hitta ett sätt att avgöra vilken anställd att sätta på bokningen
+        bookingManager.CreateSpaghettiBooking(donorId);
 
         if (isUsingMedicine == true)
         {
