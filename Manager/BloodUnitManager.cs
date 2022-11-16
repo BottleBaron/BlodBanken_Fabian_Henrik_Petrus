@@ -37,7 +37,7 @@ internal class BloodUnitManager
         return bloodUnitDict;
     }
 
-    public void EnterNewBloodUnits(int amountOfUnits, Booking booking)
+    public void EnterNewBloodUnits(int amountOfUnits, Booking booking, int bloodType)
     {
         for (int i = 0; i < amountOfUnits; i++)
         {
@@ -45,7 +45,7 @@ internal class BloodUnitManager
             {
                 donor_id = booking.donor_id,
                 booking_id = booking.id,
-                blood_type = booking.BloodType,
+                blood_type = bloodType,
                 is_consumed = false
             };
 

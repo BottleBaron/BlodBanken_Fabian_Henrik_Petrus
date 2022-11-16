@@ -75,7 +75,27 @@ internal class DonorDB : DBConnection, ICrud<Donor>
         {
             try
             {
-                connection.Execute(query);
+                connection.Execute(query, parameters);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+    }
+
+    public Donor SelectDonor(int id)
+    {
+        var parameters = new DynamicParameters(id);
+
+        string query = "SELECT * FROM donors WHERE id = @id";
+        
+        using (var connection = DBConnect())
+        {
+            try
+            {
+                Donor donor = connection.QuerySingle<Donor>(query, parameters);
+                return donor;
             }
             catch (System.Exception e)
             {

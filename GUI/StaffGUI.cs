@@ -96,8 +96,12 @@ class StaffGUI
             else continue;
         }
 
+        // Note: Potential spaghetti solution. Refrain from contacting crud classes from UI?
+        DonorDB donorDb = new DonorDB();
+        Donor bloodTypeGetter = donorDb.SelectDonor(selectedBooking.donor_id);
+        
         bookingMgr.CheckBooking(selectedBooking);
-        bloodUnitMgr.EnterNewBloodUnits(unitsDonated, selectedBooking);
+        bloodUnitMgr.EnterNewBloodUnits(unitsDonated, selectedBooking, bloodTypeGetter.blood_type);
     }
 
     private void SendRequestMenu()
