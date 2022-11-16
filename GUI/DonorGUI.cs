@@ -21,6 +21,7 @@ class DonorGUI
 
     {
         HealthInfoManager healthInfoManager = new HealthInfoManager();
+        MedicinManager medicinManager = new();
         HealthInformation newHealthInformation = new();
         bool isUsingMedicine;
 
@@ -112,7 +113,7 @@ class DonorGUI
         
         if (isUsingMedicine == true)
         {
-            //Kalla på medicinemanager
+            medicinManager.SaveMedicinListToDB(medicineList,healthInformationId);
         }
     }
 
