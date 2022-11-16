@@ -29,7 +29,7 @@ internal class HealthInformationDB : DBConnection, ICrud<HealthInformation>
 
         string query =
             $"INSERT INTO health_information (donor_id, donor_height, donor_weight, is_drug_user, visited_high_risk_country) " +
-            "VALUES(@donor_id, @donor_height, @donor_weight, @is_drug_user, @visited_high_risk_country); SELECT MAX(id) FROM blood_units;";
+            "VALUES(@donor_id, @donor_height, @donor_weight, @is_drug_user, @visited_high_risk_country); SELECT MAX(id) FROM health_information;";
 
         using (var connection = DBConnect())
         {
