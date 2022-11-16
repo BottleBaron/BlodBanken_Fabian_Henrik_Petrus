@@ -20,10 +20,7 @@ internal class DonorManager
             return true;
         }
 
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
 
@@ -32,12 +29,13 @@ internal class DonorManager
         //Checks that the fields are not empty. 
         if (address[0].Length > 0 && address[1].Length > 0 && address[2].Length > 0)
         {
-            //Checks that the zip code is 5 digits long. 
-            if (address[1].Length == 5)
+            //Checks that the zip code is 5 digits long. Must adhere to format XXXXXX
+            if (address[1].Length == 5 && address[1].All(char.IsDigit))
             {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -50,36 +48,29 @@ internal class DonorManager
             return true;
         }
 
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
 
     public bool ValidateDateOfBirth(string dateOfBirth)
     {
         if (DateTime.TryParse(dateOfBirth, out DateTime result)) return true;
-            
+
         return false;
     }
 
 
     public bool ValidateBloodGroup(char keyPress)
     {
-        try
+        if (Int32.TryParse(keyPress.ToString(), out int bloodType))
         {
-            int bloodType = Convert.ToInt32(keyPress.ToString());
             if (bloodType >= 1 && bloodType <= 8)
             {
                 return true;
             }
-            else return false;
         }
-        catch (System.Exception)
-        {
-            return false;
-        }
+
+        return false;
     }
 
 
