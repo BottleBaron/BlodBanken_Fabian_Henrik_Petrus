@@ -2,7 +2,6 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 
 class DonorGUI
 {
-
     public void MainMenu()
     {
         BloodTypeKey bloodType = new();
@@ -12,87 +11,77 @@ class DonorGUI
         ConsoleKey selector = Console.ReadKey(true).Key;
         if (selector == ConsoleKey.D1 || selector == ConsoleKey.NumPad1)
         {
-          int donorId =  RegisterDonor();
-          Console.WriteLine(donorId);
-          FillInHealthSurvey(donorId);
+            int donorId = RegisterDonor();
+            Console.WriteLine(donorId);
+            FillInHealthSurvey(donorId);
         }
-
-
-
-
-
-
-
     }
 
     private void FillInHealthSurvey(int donorId)
-    
-    { 
+
+    {
         HealthInfoManager healthInfoManager = new HealthInfoManager();
         HealthInformation newHealthInformation = new();
-        bool isUsingMedicine; 
-        
+        bool isUsingMedicine;
+
         newHealthInformation.donor_id = donorId;
-        List <string> medicineList = new List<string>();
-        
+        List<string> medicineList = new List<string>();
+
         //Height input
         while (true)
         {
-        Console.WriteLine("What is your height in centimenters");
-       string donorHeightStr = Console.ReadLine();
+            Console.WriteLine("What is your height in centimenters");
+            string donorHeightStr = Console.ReadLine();
 
-        if (healthInfoManager.VerifyHeight(donorHeightStr)== true)
-        {   newHealthInformation.donor_height = Convert.ToInt32(donorHeightStr);
-            break;
-        }
+            if (healthInfoManager.VerifyHeight(donorHeightStr) == true)
+            {
+                newHealthInformation.donor_height = Convert.ToInt32(donorHeightStr);
+                break;
+            }
 
-        else Console.WriteLine("Incorrect value");   
+            else Console.WriteLine("Incorrect value");
         }
 
         //Weight input
         while (true)
         {
-        Console.WriteLine("What is your weight in kilograms?");
-        string donorWeightStr = Console.ReadLine();
-         
-         if (healthInfoManager.VerifyWeight(donorWeightStr)== true)
-        {   newHealthInformation.donor_weight = Convert.ToInt32(donorWeightStr);
-            break; 
-        }
+            Console.WriteLine("What is your weight in kilograms?");
+            string donorWeightStr = Console.ReadLine();
 
-        else Console.WriteLine("Incorrect value");     
-        
+            if (healthInfoManager.VerifyWeight(donorWeightStr) == true)
+            {
+                newHealthInformation.donor_weight = Convert.ToInt32(donorWeightStr);
+                break;
+            }
+
+            else Console.WriteLine("Incorrect value");
         }
 
         //Is druguser
         while (true)
-        {        
-        Console.WriteLine("Have you been using drugs\n[Y]\n[N]");
-        ConsoleKey selector = Console.ReadKey(true).Key;
-        
-        if (healthInfoManager.VerifyYesOrNo(selector) != null)
         {
-            newHealthInformation.is_drug_user = (bool)healthInfoManager.VerifyYesOrNo(selector);
-            break;
-        } 
+            Console.WriteLine("Have you been using drugs\n[Y]\n[N]");
+            ConsoleKey selector = Console.ReadKey(true).Key;
 
-        else Console.WriteLine("Incorrect value");
-             
+            if (healthInfoManager.VerifyYesOrNo(selector) != null)
+            {
+                newHealthInformation.is_drug_user = (bool)healthInfoManager.VerifyYesOrNo(selector);
+                break;
+            }
+            else Console.WriteLine("Incorrect value");
         }
 
-         while (true)
-        {        
-        Console.WriteLine("Have you recently been in a high risk country?\n[Y]\n[N]");
-        ConsoleKey selector = Console.ReadKey(true).Key;
-        
-        if (healthInfoManager.VerifyYesOrNo(selector) != null)
+        while (true)
         {
-            newHealthInformation.visited_high_risk_country = (bool)healthInfoManager.VerifyYesOrNo(selector);
-            break;
-        } 
+            Console.WriteLine("Have you recently been in a high risk country?\n[Y]\n[N]");
+            ConsoleKey selector = Console.ReadKey(true).Key;
 
-        else Console.WriteLine("Incorrect value");  
-
+            if (healthInfoManager.VerifyYesOrNo(selector) != null)
+            {
+                newHealthInformation.visited_high_risk_country = (bool)healthInfoManager.VerifyYesOrNo(selector);
+                break;
+            }
+            else Console.WriteLine("Incorrect value");
         }
 
         while (true)
@@ -109,50 +98,46 @@ class DonorGUI
                     break;
                 }
                 else break;
-
             }
             else
-            
-                Console.WriteLine("Incorrect value");
-            
-        }
 
+                Console.WriteLine("Incorrect value");
+        }
+        
         //Save to DB
         int healthInformationId = healthInfoManager.SaveHealthInformationToDB(newHealthInformation);
-
+        
+        // Hämta donor id, och skapa en bokning 
+        // TODO: Hitta ett sätt att avgöra vilken anställd att sätta på bokningen
         
         if (isUsingMedicine == true)
         {
             //Kalla på medicinemanager
         }
-        
-
-      
     }
 
     private List<string> RegisterMedicines()
-
-    {   
+    {
         List<string> medicineList = new();
         MedicinManager medicinManager = new();
         string medicine;
         while (true)
         {
-            
-        
-        Console.WriteLine("Please enter your medicine (one at the time)");
-        medicine = Console.ReadLine();
-        if (medicinManager.VerifyMedicine(medicine)== true)
-        {
-            medicineList.Add(medicine);
-            Console.WriteLine(medicine + "added. Press [Y] to add another medicine or any other key to stop ");
-            ConsoleKey selector = Console.ReadKey(true).Key;
-            if (selector != ConsoleKey.Y)
+            Console.WriteLine("Please enter your medicine (one at a time)");
+            medicine = Console.ReadLine();
+            if (medicinManager.VerifyMedicine(medicine) == true)
             {
+                medicineList.Add(medicine);
+                Console.WriteLine(medicine + "added. Press [Y] to add another medicine or any other key to stop ");
+                ConsoleKey selector = Console.ReadKey(true).Key;
+                if (selector == ConsoleKey.Y)
+                {
+                   continue;
+                }
                 break;
             }
         }
-        }   
+
         return medicineList;
     }
 
@@ -160,106 +145,93 @@ class DonorGUI
     {
         Donor newDonor = new();
         DonorManager donorManager = new();
-           
-    
+
         //Name
         while (true)
         {
-
             Console.WriteLine("Please enter your full name?");
             string name = Console.ReadLine();
             if (donorManager.ValidateName(name) == true)
             {
-                newDonor.name =name;
+                newDonor.name = name;
                 break;
             }
             else Console.WriteLine("Incorrect input");
-                                    
         }
+
         //Address
         while (true)
         {
-
+            Console.Clear();
             string?[] address = new string[3];
             Console.WriteLine("Enter your street address");
-
             address[0] = Console.ReadLine();
-            Console.WriteLine("Enter your zipcode");
+            Console.WriteLine("Enter your zipcode in a five digit format (XXXXX)");
             address[1] = Console.ReadLine();
             Console.WriteLine("Enter your city");
             address[2] = Console.ReadLine();
 
-            if (donorManager.ValidateAddress(address) == true)
+            if (donorManager.ValidateAddress(address))
             {
-                newDonor.address = (address[0]+", "+ address[1]+", "+ address[2]);
+                newDonor.address = (address[0] + ", " + address[1] + ", " + address[2]);
                 break;
             }
-            else Console.WriteLine("Incorrect input");  
-            
+            else Console.WriteLine("Incorrect input");
         }
 
         //PhoneNumber
         while (true)
         {
-
             Console.WriteLine("Enter your phone number?");
             string phoneNumber = Console.ReadLine();
             if (donorManager.ValidatePhoneNumber(phoneNumber) == true)
-            {   
+            {
                 newDonor.phone_number = phoneNumber;
                 break;
             }
-            else Console.WriteLine("Incorrect input");  
-          
-            
+            else Console.WriteLine("Incorrect input");
         }
 
         //Date of Birth
         while (true)
         {
-
-            Console.WriteLine("Enter your date of birth YYYYmmdd");
+            Console.WriteLine("Enter your date of birth (format: YYYY-mm-dd)");
             string dateOfBirth = Console.ReadLine();
 
             if (donorManager.ValidateDateOfBirth(dateOfBirth) == true)
             {
                 newDonor.date_of_birth = dateOfBirth;
-            break;
+                break;
             }
-            else Console.WriteLine("Incorrect input"); 
-                                        
+            else Console.WriteLine("Incorrect input");
         }
 
-         while (true)
-    {   //Prints the different bloodgroups in the dictionary starting from 1. 
-        for (int i = 1; i < newDonor.key.BloodType.Count; i++)
-        {   
-            var kvp = newDonor.key.BloodType.ElementAt(i);
-            int itemKey = kvp.Key;
-            string itemValue = kvp.Value;
-            Console.WriteLine($"[{kvp.Key}] {kvp.Value}");
-        }
-
-        char keyPress = Console.ReadKey(true).KeyChar; 
-        //Validates that the keypress represents a bloodgroup. 
-        if (donorManager.ValidateBloodGroup(keyPress) == true)
+        while (true)
         {
-            //Sets the property and exits the for loop. 
-            newDonor.blood_type = Convert.ToInt32(keyPress.ToString());
-            break;
+            //Prints the different bloodgroups in the dictionary starting from 1. 
+            for (int i = 1; i < newDonor.key.BloodType.Count; i++)
+            {
+                var kvp = newDonor.key.BloodType.ElementAt(i);
+                int itemKey = kvp.Key;
+                string itemValue = kvp.Value;
+                Console.WriteLine($"[{kvp.Key}] {kvp.Value}");
+            }
+
+            char keyPress = Console.ReadKey(true).KeyChar;
+            //Validates that the keypress represents a bloodgroup. 
+            if (donorManager.ValidateBloodGroup(keyPress) == true)
+            {
+                //Sets the property and exits the for loop. 
+                newDonor.blood_type = Convert.ToInt32(keyPress.ToString());
+                break;
+            }
+            else Console.WriteLine("Wrong input");
         }
-        else Console.WriteLine("Wrong input");
-    }
-
-
+        
         //Save the donorobject to the DB
-        int savedDonorId =  donorManager.SaveDonorToDB(newDonor);
+        int savedDonorId = donorManager.SaveDonorToDB(newDonor);
         return savedDonorId;
     }
-
-
-
-
 }
 
 
@@ -272,5 +244,3 @@ class DonorGUI
 // Välj Namn:
 // Adress:
 // etc.
-
-
