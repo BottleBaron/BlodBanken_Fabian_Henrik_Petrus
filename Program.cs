@@ -8,6 +8,28 @@ internal class Program
         StaffGUI staffGui = new();
         StaffManager staffMngr = new();
 
+        string[] coolLogo =  new string[]   
+        {
+         "           ██▓     ▒█████   ▒█████  ▓█████▄     ▄▄▄▄    ▄▄▄       ███▄    █  ██ ▄█▀ ",
+         "  ▓█████▄ ▓██▒    ▒██▒  ██▒▒██▒  ██▒▒██▀ ██▌   ▓█████▄ ▒████▄     ██ ▀█   █  ██▄█▒  ",
+         "  ▒██▒ ▄██▒██░    ▒██░  ██▒▒██░  ██▒░██   █▌   ▒██▒ ▄██▒██  ▀█▄  ▓██  ▀█ ██▒▓███▄░  ",
+         "  ▒██░█▀  ▒██░    ▒██   ██░▒██   ██░░▓█▄   ▌   ▒██░█▀  ░██▄▄▄▄██ ▓██▒  ▐▌██▒▓██ █▄  ",
+         "  ░▓█  ▀█▓░██████▒░ ████▓▒░░ ████▓▒░░▒████▓    ░▓█  ▀█▓ ▓█   ▓██▒▒██░   ▓██░▒██▒ █▄ ",
+         "  ░▒▓███▀▒░ ▒░▓  ░░ ▒░▒░▒░ ░ ▒░▒░▒░  ▒▒▓  ▒    ░▒▓███▀▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒ ▒ ▒▒ ▓▒ ",
+         "  ▒░▒   ░ ░ ░ ▒  ░  ░ ▒ ▒░   ░ ▒ ▒░  ░ ▒  ▒    ▒░▒   ░   ▒   ▒▒ ░░ ░░   ░ ▒░░ ░▒ ▒░ ",
+         "  ░    ░   ░ ░   ░ ░ ░ ▒  ░ ░ ░ ▒   ░ ░  ░     ░    ░   ░   ▒      ░   ░ ░ ░ ░░ ░   ",
+         "  ░          ░  ░    ░ ░      ░ ░     ░        ░            ░  ░         ░ ░  ░     ",
+         "       ░                            ░               ░                               ",
+        };
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Red;
+        foreach (var line in coolLogo)
+        {
+            Console.WriteLine(line);
+        }
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.ReadKey();
+
         while (true)
         {
             Console.Clear();
