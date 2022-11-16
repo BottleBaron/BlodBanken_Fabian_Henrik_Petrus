@@ -19,6 +19,7 @@ class DonorGUI
     {
         Console.Clear();
         HealthInfoManager healthInfoManager = new HealthInfoManager();
+        MedicinManager medicinManager = new();
         HealthInformation newHealthInformation = new();
         List<string> medicineList = new List<string>();
 
@@ -112,7 +113,7 @@ class DonorGUI
 
         if (isUsingMedicine == true)
         {
-            //Kalla på medicinemanager
+            medicinManager.SaveMedicinListToDB(medicineList,healthInformationId);
         }
     }
 
