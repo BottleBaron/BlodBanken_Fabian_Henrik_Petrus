@@ -112,12 +112,15 @@ class DonorGUI
         
         // TODO: Hämta donor id, och skapa en bokning 
         // TODO: Hitta ett sätt att avgöra vilken anställd att sätta på bokningen
-        bookingManager.CreateSpaghettiBooking(donorId);
+        
 
         if (isUsingMedicine == true)
         {
             medicinManager.SaveMedicinListToDB(medicineList,healthInformationId);
+            
         }
+
+        bookingManager.CreateSpaghettiBooking(donorId);
     }
 
     private List<string> RegisterMedicines()
