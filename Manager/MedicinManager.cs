@@ -18,5 +18,17 @@ internal class MedicinManager
         }
     }
 
+    public void SaveMedicinListToDB(List <string> medcineInputs,int healthInformationId)
+    {
+        foreach (string medicines in medcineInputs)
+        {
+            Medicin newMedicine  = new();
+            newMedicine.health_info_id = healthInformationId;
+            newMedicine.medicine = medicines;
 
+            _medicinDb.Create(newMedicine);
+        
+
+        }
+    }
 }
