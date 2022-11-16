@@ -5,65 +5,40 @@ internal class HealthInfoManager
     private HealthInformationDB _healthInfoDb = new();
 
 
-public bool VerifyHeight(string height)
-{
-    try
+    public bool VerifyHeight(string height)
     {
-        int donorHeight = Convert.ToInt32(height);
+        if (Int32.TryParse(height, out int result)) return true;
 
-        return true;
-    }
-    catch (System.Exception)
-    {
-        
-        
-        return false;
-    }
-}
-
-public bool VerifyWeight(string weight)
-{
-    try
-    {
-        int donorWeight = Convert.ToInt32(weight);
-        
-        return true;
-    }
-    catch (System.Exception)
-    {
-        
-        
-        return false;
-    }
-}
-
-public bool? VerifyYesOrNo(ConsoleKey selector)
-{
-    if (selector == ConsoleKey.Y)
-    {
-        return true;
-    }
-    else if (selector == ConsoleKey.N)
-    {
         return false;
     }
 
-    else
+    public bool VerifyWeight(string weight)
     {
-        return null;
+        if (Int32.TryParse(weight, out int result)) return true;
+
+        return false;
     }
-}
 
+    public bool? VerifyYesOrNo(ConsoleKey selector)
+    {
+        if (selector == ConsoleKey.Y)
+        {
+            return true;
+        }
+        else if (selector == ConsoleKey.N)
+        {
+            return false;
+        }
+        else
+        {
+            return null;
+        }
+    }
 
-
-public int SaveHealthInformationToDB (HealthInformation newHealthInformation)
-{
-    int healthInformationId;
-    healthInformationId = _healthInfoDb.Create(newHealthInformation);
-    return healthInformationId;
-}
-
-
-
-
+    public int SaveHealthInformationToDB(HealthInformation newHealthInformation)
+    {
+        int healthInformationId;
+        healthInformationId = _healthInfoDb.Create(newHealthInformation);
+        return healthInformationId;
+    }
 }

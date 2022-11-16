@@ -4,32 +4,32 @@ class DonorGUI
 {
     public void MainMenu()
     {
-        BloodTypeKey bloodType = new();
-        DonorManager donorManager = new();
+        Console.Clear();
+        Console.WriteLine("Välkommen till Blodbanken.\nPress any key to begin your registration process:");
+        Console.ReadKey(true);
 
-        Console.WriteLine("Välkommen till Blodbanken. \n[1]\n\n");
-        ConsoleKey selector = Console.ReadKey(true).Key;
-        if (selector == ConsoleKey.D1 || selector == ConsoleKey.NumPad1)
-        {
-            int donorId = RegisterDonor();
-            Console.WriteLine(donorId);
-            FillInHealthSurvey(donorId);
-        }
+        int donorId = RegisterDonor();
+
+        Console.WriteLine(donorId);
+
+        FillInHealthSurvey(donorId);
     }
 
     private void FillInHealthSurvey(int donorId)
-
     {
+        Console.Clear();
         HealthInfoManager healthInfoManager = new HealthInfoManager();
         HealthInformation newHealthInformation = new();
-        bool isUsingMedicine;
-
-        newHealthInformation.donor_id = donorId;
         List<string> medicineList = new List<string>();
+
+        bool isUsingMedicine;
+        newHealthInformation.donor_id = donorId;
 
         //Height input
         while (true)
         {
+            Console.Clear();
+            Console.WriteLine("-- HEALTH INFORMATION --");
             Console.WriteLine("What is your height in centimenters");
             string donorHeightStr = Console.ReadLine();
 
@@ -38,13 +38,13 @@ class DonorGUI
                 newHealthInformation.donor_height = Convert.ToInt32(donorHeightStr);
                 break;
             }
-
             else Console.WriteLine("Incorrect value");
         }
 
         //Weight input
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("What is your weight in kilograms?");
             string donorWeightStr = Console.ReadLine();
 
@@ -53,13 +53,13 @@ class DonorGUI
                 newHealthInformation.donor_weight = Convert.ToInt32(donorWeightStr);
                 break;
             }
-
             else Console.WriteLine("Incorrect value");
         }
 
         //Is druguser
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("Have you been using drugs\n[Y]\n[N]");
             ConsoleKey selector = Console.ReadKey(true).Key;
 
@@ -73,6 +73,7 @@ class DonorGUI
 
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("Have you recently been in a high risk country?\n[Y]\n[N]");
             ConsoleKey selector = Console.ReadKey(true).Key;
 
@@ -86,6 +87,7 @@ class DonorGUI
 
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("Are you on any medications?\n[Y]\n[N]");
             ConsoleKey selector = Console.ReadKey(true).Key;
 
@@ -99,17 +101,15 @@ class DonorGUI
                 }
                 else break;
             }
-            else
-
-                Console.WriteLine("Incorrect value");
+            else Console.WriteLine("Incorrect value");
         }
-        
+
         //Save to DB
         int healthInformationId = healthInfoManager.SaveHealthInformationToDB(newHealthInformation);
-        
-        // Hämta donor id, och skapa en bokning 
+
+        // TODO: Hämta donor id, och skapa en bokning 
         // TODO: Hitta ett sätt att avgöra vilken anställd att sätta på bokningen
-        
+
         if (isUsingMedicine == true)
         {
             //Kalla på medicinemanager
@@ -123,6 +123,7 @@ class DonorGUI
         string medicine;
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("Please enter your medicine (one at a time)");
             medicine = Console.ReadLine();
             if (medicinManager.VerifyMedicine(medicine) == true)
@@ -132,12 +133,11 @@ class DonorGUI
                 ConsoleKey selector = Console.ReadKey(true).Key;
                 if (selector == ConsoleKey.Y)
                 {
-                   continue;
+                    continue;
                 }
                 break;
             }
         }
-
         return medicineList;
     }
 
@@ -149,6 +149,8 @@ class DonorGUI
         //Name
         while (true)
         {
+            Console.Clear();
+            Console.WriteLine("-- PERSONAL INFORMATION --");
             Console.WriteLine("Please enter your full name?");
             string name = Console.ReadLine();
             if (donorManager.ValidateName(name) == true)
@@ -182,6 +184,7 @@ class DonorGUI
         //PhoneNumber
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("Enter your phone number?");
             string phoneNumber = Console.ReadLine();
             if (donorManager.ValidatePhoneNumber(phoneNumber) == true)
@@ -195,6 +198,7 @@ class DonorGUI
         //Date of Birth
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("Enter your date of birth (format: YYYY-mm-dd)");
             string dateOfBirth = Console.ReadLine();
 
@@ -208,6 +212,7 @@ class DonorGUI
 
         while (true)
         {
+            Console.Clear();
             //Prints the different bloodgroups in the dictionary starting from 1. 
             for (int i = 1; i < newDonor.key.BloodType.Count; i++)
             {
@@ -227,7 +232,7 @@ class DonorGUI
             }
             else Console.WriteLine("Wrong input");
         }
-        
+
         //Save the donorobject to the DB
         int savedDonorId = donorManager.SaveDonorToDB(newDonor);
         return savedDonorId;

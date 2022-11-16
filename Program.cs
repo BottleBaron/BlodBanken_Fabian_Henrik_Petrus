@@ -23,7 +23,7 @@ internal class Program
             {
                 Console.WriteLine(line);
             }
-            var keyPress = Console.ReadKey();
+            var keyPress = Console.ReadKey(true);
 
             if (keyPress.Key == ConsoleKey.D1) donorGui.MainMenu();
             else if (keyPress.Key == ConsoleKey.D2) 

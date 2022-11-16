@@ -19,7 +19,6 @@ internal class DonorManager
         {
             return true;
         }
-
         return false;
     }
 
@@ -35,7 +34,6 @@ internal class DonorManager
                 return true;
             }
         }
-
         return false;
     }
 
@@ -47,7 +45,6 @@ internal class DonorManager
         {
             return true;
         }
-
         return false;
     }
 
@@ -69,7 +66,6 @@ internal class DonorManager
                 return true;
             }
         }
-
         return false;
     }
 
