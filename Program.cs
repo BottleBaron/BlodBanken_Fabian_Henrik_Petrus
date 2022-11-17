@@ -8,7 +8,7 @@ internal class Program
         StaffGUI staffGui = new();
         StaffManager staffMngr = new();
 
-        string[] coolLogo =  new string[]   
+      string[] coolLogo =  new string[]   
         {
          "           ██▓     ▒█████   ▒█████  ▓█████▄     ▄▄▄▄    ▄▄▄       ███▄    █  ██ ▄█▀ ",
          "  ▓█████▄ ▓██▒    ▒██▒  ██▒▒██▒  ██▒▒██▀ ██▌   ▓█████▄ ▒████▄     ██ ▀█   █  ██▄█▒  ",
@@ -20,12 +20,24 @@ internal class Program
          "  ░    ░   ░ ░   ░ ░ ░ ▒  ░ ░ ░ ▒   ░ ░  ░     ░    ░   ░   ▒      ░   ░ ░ ░ ░░ ░   ",
          "  ░          ░  ░    ░ ░      ░ ░     ░        ░            ░  ░         ░ ░  ░     ",
          "       ░                            ░               ░                               ",
+         "                                                                                    ", 
+         "                         Made by Petrus, Henrik & Fabian                            " 
+
+         
         };
-        Console.Clear();
+    
+      for (int i = 0; i < 7; i++)
+      {
+        Random random = new();
+        Thread.Sleep(random.Next(50,300));
+        Console.Clear(); 
+        Thread.Sleep(random.Next(50,300));  
         Console.ForegroundColor = ConsoleColor.Red;
+        
         foreach (var line in coolLogo)
         {
-            Console.WriteLine(line);
+            Console.WriteLine(line);            
+        }    
         }
         Console.ForegroundColor = ConsoleColor.White;
         Console.ReadKey();
