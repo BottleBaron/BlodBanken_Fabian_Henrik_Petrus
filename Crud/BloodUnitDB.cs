@@ -16,6 +16,10 @@ internal class BloodUnitDB : DBConnection, ICrud<BloodUnit>
 
                 return bloodUnits;
             }
+            catch (System.InvalidOperationException)
+            {
+                return null;
+            }
             catch (System.Exception e)
             {
                 throw e;
@@ -75,7 +79,7 @@ internal class BloodUnitDB : DBConnection, ICrud<BloodUnit>
         {
             try
             {
-                connection.Execute(query);
+                connection.Execute(query, parameters);
             }
             catch (System.Exception e)
             {

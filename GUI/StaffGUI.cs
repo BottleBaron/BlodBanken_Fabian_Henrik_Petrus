@@ -1,3 +1,5 @@
+using System.Reflection.Metadata.Ecma335;
+
 namespace BlodBanken_Fabian_Henrik_Petrus;
 
 class StaffGUI
@@ -37,6 +39,12 @@ class StaffGUI
     {
         BloodUnitManager bloodUnitManager = new();
         Dictionary<string, int> currentStock = bloodUnitManager.GetBloodUnitsAmount();
+        if (currentStock == null)
+        {
+            Console.WriteLine("Stock is empty");
+            Console.ReadKey();
+            return;
+        }
 
         Console.WriteLine("-- CURRENT STOCK --");
         foreach (var keyValuePair in currentStock)
@@ -68,6 +76,7 @@ class StaffGUI
 
             foreach (var booking in bookingsToCheck)
             {
+                booking.GetNameValues();
                 Console.WriteLine(booking.ToString());
             }
 
@@ -78,19 +87,18 @@ class StaffGUI
             {
                 foreach (var booking in bookingsToCheck)
                 {
-                    if (result == booking.id) selectedBooking = booking;
-                    break;
+                    if (result == booking.id)
+                    {
+                        selectedBooking = booking;
+                        goto anchor;
+                    }
                 }
-
-                break;
             }
-            else
-            {
-                Console.WriteLine("Error: Entry was not valid or did not match a booking");
-                Console.ReadKey();
-                return;
-            }
+            Console.WriteLine("Error: Entry was not valid or did not match a booking");
+            Console.ReadKey();
         }
+
+        anchor:
 
         bookingMgr.CheckBooking(selectedBooking);
 

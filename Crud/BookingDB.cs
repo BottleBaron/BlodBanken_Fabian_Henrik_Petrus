@@ -15,6 +15,10 @@ internal class BookingDB :DBConnection, ICrud<Booking>
                 var result = connection.Query<Booking>(query).ToList();
                 return result;
             }
+            catch (System.InvalidOperationException)
+            {
+                return null;
+            }
             catch (System.Exception e)
             {
                 throw e;
@@ -97,6 +101,10 @@ internal class BookingDB :DBConnection, ICrud<Booking>
             {
                 var result = connection.Query<Booking>(query, parameters).ToList();
                 return result;
+            }
+            catch (System.InvalidOperationException)
+            {
+                return null;
             }
             catch (System.Exception e)
             {

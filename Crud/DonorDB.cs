@@ -17,9 +17,13 @@ internal class DonorDB : DBConnection, ICrud<Donor>
                 var result = connection.Query<Donor>(query).ToList();
                 return result;
             }
-            catch (System.Exception)
+            catch (System.InvalidOperationException)
             {
-                throw;
+                return null;
+            }
+            catch (System.Exception e)
+            {
+                throw e;
             }
         }
     }
@@ -99,6 +103,10 @@ internal class DonorDB : DBConnection, ICrud<Donor>
             {
                 Donor donor = connection.QuerySingle<Donor>(query, parameters);
                 return donor;
+            }
+            catch (System.InvalidOperationException)
+            {
+                return null;
             }
             catch (System.Exception e)
             {

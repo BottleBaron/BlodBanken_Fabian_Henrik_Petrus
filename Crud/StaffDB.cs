@@ -15,6 +15,10 @@ internal class StaffDB : DBConnection, ICrud<Staff>
                 var result = connection.Query<Staff>(query).ToList();
                 return result;
             }
+            catch (System.InvalidOperationException)
+            {
+                return null;
+            }
             catch (System.Exception e)
             {
                 throw e;
@@ -97,6 +101,10 @@ internal class StaffDB : DBConnection, ICrud<Staff>
             {
                 Staff result = connection.QuerySingle<Staff>(query, parameters);
                 return result;
+            }
+            catch (System.InvalidOperationException)
+            {
+                return null;
             }
             catch (System.Exception e)
             {

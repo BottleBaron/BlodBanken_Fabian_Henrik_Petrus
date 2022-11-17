@@ -57,6 +57,10 @@ internal class MedicinDB : DBConnection, ICrud<Medicin>
 
                 return medicine;
             }
+            catch (System.InvalidOperationException)
+            {
+                return null;
+            }
             catch (System.Exception e)
             {
                 throw e;

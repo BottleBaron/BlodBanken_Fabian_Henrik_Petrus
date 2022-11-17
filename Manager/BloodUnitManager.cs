@@ -9,6 +9,8 @@ internal class BloodUnitManager
         var bloodTypekey = new BloodTypeKey();
         
         List<BloodUnit> listOfBloodUnits = _bloodUnitDb.Read();
+        if (listOfBloodUnits.Count < 1) return null;
+        
         listOfBloodUnits.Sort(new BloodUnitComparer());
         Dictionary<string, int> bloodUnitDict = new();
 

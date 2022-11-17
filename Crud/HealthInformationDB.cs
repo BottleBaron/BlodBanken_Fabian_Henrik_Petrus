@@ -16,9 +16,13 @@ internal class HealthInformationDB : DBConnection, ICrud<HealthInformation>
                 var result = connection.Query<HealthInformation>(query).ToList();
                 return result;
             }
-            catch (System.Exception)
+            catch (System.InvalidOperationException)
             {
-                throw;
+                return null;
+            }
+            catch (System.Exception e)
+            {
+                throw e;
             }
         }
     }
