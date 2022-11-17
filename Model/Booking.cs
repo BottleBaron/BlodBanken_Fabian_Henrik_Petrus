@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace BlodBanken_Fabian_Henrik_Petrus;
 
 public class Booking
@@ -13,7 +15,7 @@ public class Booking
     public string DonorName { get; set; }
     public string StaffName { get; set; }
 
-    public Booking()
+    public void GetNameValues()
     {
         StaffDB staffDb = new();
         DonorDB donorDb = new();
@@ -23,8 +25,7 @@ public class Booking
         this.DonorName = d.name;
         this.StaffName = s.name;
     }
-
-
+     
     public override string ToString()
     {
         return $"{id} {donor_id}:{DonorName} {staff_id}:{StaffName} {appointment_date} {is_done}";
