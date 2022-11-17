@@ -68,12 +68,17 @@ internal class DonorManager
         }
         return false;
     }
-
-
+    
     public int SaveDonorToDB(Donor newDonor)
     {
         int savedDonorId;
         savedDonorId = _donorDb.Create(newDonor);
         return savedDonorId;
+    }
+
+    public Donor SelectDonor(int id)
+    {
+        Donor donor = _donorDb.SelectDonor(id);
+        return donor;
     }
 }

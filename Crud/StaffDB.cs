@@ -82,5 +82,27 @@ internal class StaffDB : DBConnection, ICrud<Staff>
             }
         }
 
+    }    
+    
+    public Staff SelectStaff(int id)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@id", id);
+
+        string query = "SELECT * FROM staff WHERE id = @id";
+
+        using (var connection = DBConnect())
+        {
+            try
+            {
+                Staff result = connection.QuerySingle<Staff>(query, parameters);
+                return result;
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
     }
 }

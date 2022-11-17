@@ -109,17 +109,13 @@ class DonorGUI
         //Save to DB
         int healthInformationId = healthInfoManager.SaveHealthInformationToDB(newHealthInformation);
 
-        
-        // TODO: Hämta donor id, och skapa en bokning 
-        // TODO: Hitta ett sätt att avgöra vilken anställd att sätta på bokningen
-        
-
         if (isUsingMedicine == true)
         {
             medicinManager.SaveMedicinListToDB(medicineList,healthInformationId);
             
         }
 
+        // TODO: Create a better version of this
         bookingManager.CreateSpaghettiBooking(donorId);
     }
 

@@ -1,3 +1,5 @@
+using System.Data;
+
 namespace BlodBanken_Fabian_Henrik_Petrus;
 using Dapper;
 using MySqlConnector;
@@ -87,8 +89,8 @@ internal class DonorDB : DBConnection, ICrud<Donor>
     public Donor SelectDonor(int id)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@id",id);
-
+        parameters.Add("@id", id);
+        
         string query = "SELECT * FROM donors WHERE id = @id";
         
         using (var connection = DBConnect())

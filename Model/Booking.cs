@@ -12,12 +12,18 @@ public class Booking
     // Runtime Properties
     public string DonorName { get; set; }
     public string StaffName { get; set; }
-    public int BloodType { get; set; }
 
     public Booking()
     {
-        //TODO: Get donorname, staffname & blood type
+        StaffDB staffDb = new();
+        DonorDB donorDb = new();
+        Donor d = donorDb.SelectDonor(donor_id);
+        Staff s = staffDb.SelectStaff(staff_id);
+
+        this.DonorName = d.name;
+        this.StaffName = s.name;
     }
+
 
     public override string ToString()
     {

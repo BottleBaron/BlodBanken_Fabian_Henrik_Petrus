@@ -13,15 +13,16 @@ class StaffGUI
             Console.Clear();
             string[] menuString = new string[]
             {
-            "-- STAFF MENU--",
-            "1.) Check Blood Stock",
-            "2.) Confirm a Donation",
-            "3.) Send Requests To Donors"
+                "-- STAFF MENU--",
+                "1.) Check Blood Stock",
+                "2.) Confirm a Donation",
+                "3.) Send Requests To Donors"
             };
             foreach (var line in menuString)
             {
                 Console.WriteLine(line);
             }
+
             var key = Console.ReadKey();
             Console.Clear();
 
@@ -42,6 +43,7 @@ class StaffGUI
         {
             Console.WriteLine($"{keyValuePair.Key}: {keyValuePair.Value} units");
         }
+
         Console.ReadKey();
     }
 
@@ -49,6 +51,7 @@ class StaffGUI
     {
         BookingManager bookingMgr = new();
         BloodUnitManager bloodUnitMgr = new();
+        DonorManager donorMgr = new();
 
         List<Booking> bookingsToCheck = bookingMgr.GetPastBookingsByStaff(loggedInStaffMember);
 
@@ -56,14 +59,21 @@ class StaffGUI
         while (true)
         {
             Console.Clear();
+            if (bookingsToCheck.Count < 1)
+            {
+                Console.WriteLine("You currently have no bookings to check.");
+                Console.ReadKey();
+                return;
+            }
+
             foreach (var booking in bookingsToCheck)
             {
                 Console.WriteLine(booking.ToString());
             }
+
             Console.Write("Please enter an id:");
             string? stringSelection = Console.ReadLine();
 
-            // Validate 
             if (Int32.TryParse(stringSelection, out int result))
             {
                 foreach (var booking in bookingsToCheck)
@@ -71,6 +81,7 @@ class StaffGUI
                     if (result == booking.id) selectedBooking = booking;
                     break;
                 }
+
                 break;
             }
             else
@@ -81,6 +92,8 @@ class StaffGUI
             }
         }
 
+        bookingMgr.CheckBooking(selectedBooking);
+
         int unitsDonated;
         while (true)
         {
@@ -88,19 +101,14 @@ class StaffGUI
             Console.Write("Booking Selected. Please enter the number of units donated: ");
             string? stringUnits = Console.ReadLine();
 
-            if (Int32.TryParse(stringUnits, out int result)) 
+            if (Int32.TryParse(stringUnits, out int result))
             {
                 unitsDonated = result;
                 break;
             }
-            else continue;
         }
 
-        // Note: Potential spaghetti solution. Refrain from contacting crud classes from UI?
-        DonorDB donorDb = new DonorDB();
-        Donor bloodTypeGetter = donorDb.SelectDonor(selectedBooking.donor_id);
-        
-        bookingMgr.CheckBooking(selectedBooking);
+        Donor bloodTypeGetter = donorMgr.SelectDonor(selectedBooking.donor_id);
         bloodUnitMgr.EnterNewBloodUnits(unitsDonated, selectedBooking, bloodTypeGetter.blood_type);
     }
 
@@ -120,10 +128,9 @@ class StaffGUI
         string? selectedBloodType = Console.ReadLine();
         if (Int32.TryParse(selectedBloodType, out int result))
         {
-            Console.WriteLine($"A letter have been sent out to all donors with chosen bloodtype {bloodTypeKey.BloodType[result]}.");
+            Console.WriteLine(
+                $"A letter have been sent out to all donors with chosen bloodtype {bloodTypeKey.BloodType[result]}.");
             Console.ReadKey();
         }
     }
 }
-
-
