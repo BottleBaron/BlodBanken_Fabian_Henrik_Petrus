@@ -62,7 +62,7 @@ class StaffGUI
         DonorManager donorMgr = new();
 
         List<Booking> bookingsToCheck = bookingMgr.GetPastBookingsByStaff(loggedInStaffMember);
-        //TODO Du kan välja vilken bokning som helst. 
+        
         Booking selectedBooking = new();
         while (true)
         {
@@ -123,6 +123,7 @@ class StaffGUI
     private void SendRequestMenu()
     {
         BloodTypeKey bloodTypeKey = new();
+        DonorManager donorManager = new();
 
         Console.WriteLine("Select a bloodtype by entering a digit to request donations from registrered donors: \n");
 
@@ -136,8 +137,15 @@ class StaffGUI
         string? selectedBloodType = Console.ReadLine();
         if (Int32.TryParse(selectedBloodType, out int result))
         {
+            
+            List<Donor> myDonorList = donorManager.GetDonorByBloodType(result);
             Console.WriteLine(
-                $"A letter have been sent out to all donors with chosen bloodtype {bloodTypeKey.BloodType[result]}.");
+                $"A letter have been sent out to following donors with chosen bloodtype {bloodTypeKey.BloodType[result]}.");
+            foreach (var item in myDonorList)
+            {
+                Console.WriteLine($"{item.name} {item.address} " );
+            }
+           
             Console.ReadKey();
         }
     }

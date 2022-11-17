@@ -114,4 +114,30 @@ internal class DonorDB : DBConnection, ICrud<Donor>
             }
         }
     }
+
+
+    public List<Donor> GetDonorByBloodType(int bloodType)
+    {
+        var parameters = new DynamicParameters();
+        parameters.Add("@bloodType", bloodType);
+        
+        string query = "SELECT * FROM donors WHERE blood_type = @bloodType";
+        
+        using (var connection = DBConnect())
+        {
+            try
+            {
+                List<Donor> donorList = connection.Query<Donor>(query, parameters).ToList();
+                return donorList;
+            }
+            catch (System.InvalidOperationException)
+            {
+                return null;
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+    }
 }

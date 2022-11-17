@@ -81,4 +81,10 @@ internal class DonorManager
         Donor donor = _donorDb.SelectDonor(id);
         return donor;
     }
+
+    public List <Donor> GetDonorByBloodType(int bloodType)
+    {
+        List <Donor> donorList = _donorDb.GetDonorByBloodType(bloodType);
+        return donorList;
+    }
 }
