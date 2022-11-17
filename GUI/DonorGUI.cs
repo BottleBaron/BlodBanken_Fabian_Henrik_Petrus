@@ -114,9 +114,13 @@ class DonorGUI
             medicinManager.SaveMedicinListToDB(medicineList,healthInformationId);
             
         }
-
+        //TODO: Check for non fitting values of a donor
+        
         // TODO: Create a better version of this
         bookingManager.CreateSpaghettiBooking(donorId);
+        
+        Console.WriteLine("Health information has been successfully registered!");
+        Console.ReadKey();
     }
 
     private List<string> RegisterMedicines()
@@ -238,6 +242,9 @@ class DonorGUI
 
         //Save the donorobject to the DB
         int savedDonorId = donorManager.SaveDonorToDB(newDonor);
+        
+        Console.WriteLine("Personal information has been successfully registered!");
+        Console.ReadKey();
         return savedDonorId;
     }
 }
