@@ -86,7 +86,8 @@ internal class DonorDB : DBConnection, ICrud<Donor>
 
     public Donor SelectDonor(int id)
     {
-        var parameters = new DynamicParameters(id);
+        var parameters = new DynamicParameters();
+        parameters.Add("@id",id);
 
         string query = "SELECT * FROM donors WHERE id = @id";
         
