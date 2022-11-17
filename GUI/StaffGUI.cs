@@ -54,7 +54,7 @@ class StaffGUI
         DonorManager donorMgr = new();
 
         List<Booking> bookingsToCheck = bookingMgr.GetPastBookingsByStaff(loggedInStaffMember);
-
+        //TODO Du kan välja vilken bokning som helst. 
         Booking selectedBooking = new();
         while (true)
         {
