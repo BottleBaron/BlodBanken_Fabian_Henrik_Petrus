@@ -18,8 +18,7 @@ class StaffGUI
                 "-- STAFF MENU--",
                 "1.) Check Blood Stock",
                 "2.) Confirm a Donation",
-                "3.) Send Requests To Donors",
-                "4.) Return to Main Menu"
+                "3.) Send Requests To Donors"
             };
             foreach (var line in menuString)
             {
@@ -32,7 +31,7 @@ class StaffGUI
             if (key.Key == ConsoleKey.D1) CheckBloodStockMenu();
             else if (key.Key == ConsoleKey.D2) DonationConfirmMenu();
             else if (key.Key == ConsoleKey.D3) SendRequestMenu();
-            else if (key.Key == ConsoleKey.D4) return;
+            else continue;
         }
     }
 
@@ -63,18 +62,17 @@ class StaffGUI
         DonorManager donorMgr = new();
 
         List<Booking> bookingsToCheck = bookingMgr.GetPastBookingsByStaff(loggedInStaffMember);
-        //TODO Du kan välja vilken bokning som helst. 
-        if (bookingsToCheck.Count < 1)
-        {
-            Console.WriteLine("You currently have no bookings to check.");
-            Console.ReadKey();
-            return;
-        }
         
         Booking selectedBooking = new();
         while (true)
         {
             Console.Clear();
+            if (bookingsToCheck.Count < 1)
+            {
+                Console.WriteLine("You currently have no bookings to check.");
+                Console.ReadKey();
+                return;
+            }
 
             foreach (var booking in bookingsToCheck)
             {
@@ -89,7 +87,7 @@ class StaffGUI
             {
                 foreach (var booking in bookingsToCheck)
                 {
-                    if (result == booking.id)
+                    if (result == booking.Id)
                     {
                         selectedBooking = booking;
                         goto anchor;
@@ -118,14 +116,14 @@ class StaffGUI
             }
         }
 
-        Donor bloodTypeGetter = donorMgr.SelectDonor(selectedBooking.donor_id);
-        bloodUnitMgr.EnterNewBloodUnits(unitsDonated, selectedBooking, bloodTypeGetter.blood_type);
+        Donor bloodTypeGetter = donorMgr.SelectDonor(selectedBooking.DonorId);
+        bloodUnitMgr.EnterNewBloodUnits(unitsDonated, selectedBooking, bloodTypeGetter.BloodType);
     }
 
-    //TODO: Make so that this actually sends a message to the donor?
     private void SendRequestMenu()
     {
         BloodTypeKey bloodTypeKey = new();
+        DonorManager donorManager = new();
 
         Console.WriteLine("Select a bloodtype by entering a digit to request donations from registrered donors: \n");
 
@@ -139,8 +137,15 @@ class StaffGUI
         string? selectedBloodType = Console.ReadLine();
         if (Int32.TryParse(selectedBloodType, out int result))
         {
+            
+            List<Donor> myDonorList = donorManager.GetDonorByBloodType(result);
             Console.WriteLine(
-                $"A letter have been sent out to all donors with chosen bloodtype {bloodTypeKey.BloodType[result]}.");
+                $"A letter have been sent out to following donors with chosen bloodtype {bloodTypeKey.BloodType[result]}.");
+            foreach (var item in myDonorList)
+            {
+                Console.WriteLine($"{item.Name} {item.Address} " );
+            }
+           
             Console.ReadKey();
         }
     }

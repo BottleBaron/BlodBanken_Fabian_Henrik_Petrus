@@ -2,8 +2,8 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 
 public class Staff
 {
-    public int id { get; }
-    public string name { get; set; }
-    public string login_name { get; set; }
-    public string password { get; set; }
+    public int Id { get; }
+    public string Name { get; set; }
+    public string LoginName { get; set; }
+    public string Password { get; set; }
 }

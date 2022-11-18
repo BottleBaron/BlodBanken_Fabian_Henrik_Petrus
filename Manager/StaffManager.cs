@@ -10,7 +10,7 @@ internal class StaffManager
     
         foreach (var staff in residentStaff)
         {
-            if(loginName == staff.login_name && passWord == staff.password) return staff;
+            if(loginName == staff.LoginName && passWord == staff.Password) return staff;
         }
     
         return null;

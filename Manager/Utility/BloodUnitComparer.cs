@@ -6,7 +6,7 @@ class BloodUnitComparer : IComparer<BloodUnit>
     {
         if (x == null || y == null) return 1;
 
-        int diff = x.blood_type - y.blood_type;
+        int diff = x.BloodType - y.BloodType;
 
         if(diff == 0) return 0;
         else if(diff > 0) return 1;
