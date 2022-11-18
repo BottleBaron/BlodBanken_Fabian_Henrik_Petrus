@@ -7,15 +7,9 @@ internal class MedicinManager
 
     public bool VerifyMedicine(string medicine)
     {
-        if (medicine.Length>0)
-        {
-            return true;
-        }
-
-        else
-        {
-            return false;
-        }
+        if (medicine.Length>0)  return true;
+     
+        return false;
     }
 
     public void SaveMedicinListToDB(List <string> medcineInputs,int healthInformationId)

@@ -7,6 +7,7 @@ public class BloodUnit
     public int booking_id { get; set; }
     public int blood_type { get; set; }
     public bool is_consumed { get; set; }
+    
     public BloodTypeKey key = new();
 
     public override string ToString()

@@ -20,7 +20,7 @@ internal class BookingManager
     }
 
     //TODO: [BIG ASSIGNMENT] Add selectable scheduling 
-    public void CreateSpaghettiBooking(int id)
+    public void CreateSpaghettiBooking(int donorId)
     {
         var staffdb = new StaffDB();
         Random random = new Random();
@@ -30,7 +30,7 @@ internal class BookingManager
         
         Booking newBooking = new Booking()
         {
-            donor_id = id,
+            donor_id = donorId,
             staff_id = rStaffId,
             appointment_date = DateTime.Now.AddDays(7).AddMinutes(DateTime.Now.Minute % 15 == 0 ? 0 : 15 - DateTime.Now.Minute % 15),
             is_done = false

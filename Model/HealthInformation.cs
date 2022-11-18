@@ -12,21 +12,6 @@ public class HealthInformation
     public bool visited_high_risk_country { get; set; }
     
     // Runtime Properties
-    public string DonorName { get; set; }
-    public int BloodType { get; set; }
     public List<string> Medicine_List { get; set; }
-    
-    public HealthInformation()
-    {
-    }
 
-   public HealthInformation(int donorId, int donorHeight, int donorWeight, bool isDrugUser, bool haveVisitedHighRiskCountry)
-    {
-        donor_id = donorId;
-        donor_height = donorHeight;
-        donor_weight = donorWeight;
-        is_drug_user = isDrugUser;
-        visited_high_risk_country = haveVisitedHighRiskCountry;
-    }
-    
 }
