@@ -8,14 +8,14 @@ internal class BookingManager
     {
         List<Booking> relatedBookings = _bookingDb.SelectByStaffId(staffMember);
 
-        relatedBookings.RemoveAll(booking => booking.appointment_date > DateTime.Now || booking.is_done);
+        relatedBookings.RemoveAll(booking => booking.AppointmentDate > DateTime.Now || booking.IsDone);
 
        return relatedBookings;
     }
 
     public void CheckBooking(Booking booking)
     {
-        booking.is_done = true;
+        booking.IsDone = true;
         _bookingDb.Update(booking);
     }
 
@@ -29,10 +29,10 @@ internal class BookingManager
         
         Booking newBooking = new Booking()
         {
-            donor_id = id,
-            staff_id = rStaffId,
-            appointment_date = DateTime.Now.AddDays(7).AddMinutes(DateTime.Now.Minute % 15 == 0 ? 0 : 15 - DateTime.Now.Minute % 15),
-            is_done = false
+            DonorId = id,
+            StaffId = rStaffId,
+            AppointmentDate = DateTime.Now.AddDays(7).AddMinutes(DateTime.Now.Minute % 15 == 0 ? 0 : 15 - DateTime.Now.Minute % 15),
+            IsDone = false
         };
 
         _bookingDb.Create(newBooking);

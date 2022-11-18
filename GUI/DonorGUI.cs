@@ -25,7 +25,7 @@ class DonorGUI
         List<string> medicineList = new List<string>();
 
         bool isUsingMedicine;
-        newHealthInformation.donor_id = donorId;
+        newHealthInformation.DonorId = donorId;
 
         //Height input
         while (true)
@@ -37,7 +37,7 @@ class DonorGUI
 
             if (healthInfoManager.VerifyHeight(donorHeightStr) == true)
             {
-                newHealthInformation.donor_height = Convert.ToInt32(donorHeightStr);
+                newHealthInformation.DonorHeight = Convert.ToInt32(donorHeightStr);
                 break;
             }
             else Console.WriteLine("Incorrect value");
@@ -52,7 +52,7 @@ class DonorGUI
 
             if (healthInfoManager.VerifyWeight(donorWeightStr) == true)
             {
-                newHealthInformation.donor_weight = Convert.ToInt32(donorWeightStr);
+                newHealthInformation.DonorWeight = Convert.ToInt32(donorWeightStr);
                 break;
             }
             else Console.WriteLine("Incorrect value");
@@ -67,7 +67,7 @@ class DonorGUI
 
             if (healthInfoManager.VerifyYesOrNo(selector) != null)
             {
-                newHealthInformation.is_drug_user = (bool)healthInfoManager.VerifyYesOrNo(selector);
+                newHealthInformation.IsDrugUser = (bool)healthInfoManager.VerifyYesOrNo(selector);
                 break;
             }
             else Console.WriteLine("Incorrect value");
@@ -81,7 +81,7 @@ class DonorGUI
 
             if (healthInfoManager.VerifyYesOrNo(selector) != null)
             {
-                newHealthInformation.visited_high_risk_country = (bool)healthInfoManager.VerifyYesOrNo(selector);
+                newHealthInformation.HasVisitedHighRiskCountry = (bool)healthInfoManager.VerifyYesOrNo(selector);
                 break;
             }
             else Console.WriteLine("Incorrect value");
@@ -158,7 +158,7 @@ class DonorGUI
             string name = Console.ReadLine();
             if (donorManager.ValidateName(name) == true)
             {
-                newDonor.name = name;
+                newDonor.Name = name;
                 break;
             }
             else Console.WriteLine("Incorrect input");
@@ -178,7 +178,7 @@ class DonorGUI
 
             if (donorManager.ValidateAddress(address))
             {
-                newDonor.address = (address[0] + ", " + address[1] + ", " + address[2]);
+                newDonor.Address = (address[0] + ", " + address[1] + ", " + address[2]);
                 break;
             }
             else Console.WriteLine("Incorrect input");
@@ -192,7 +192,7 @@ class DonorGUI
             string phoneNumber = Console.ReadLine();
             if (donorManager.ValidatePhoneNumber(phoneNumber) == true)
             {
-                newDonor.phone_number = phoneNumber;
+                newDonor.PhoneNumber = phoneNumber;
                 break;
             }
             else Console.WriteLine("Incorrect input");
@@ -207,7 +207,7 @@ class DonorGUI
 
             if (donorManager.ValidateDateOfBirth(dateOfBirth) == true)
             {
-                newDonor.date_of_birth = dateOfBirth;
+                newDonor.DateOfBirth = dateOfBirth;
                 break;
             }
             else Console.WriteLine("Incorrect input");
@@ -230,7 +230,7 @@ class DonorGUI
             if (donorManager.ValidateBloodGroup(keyPress) == true)
             {
                 //Sets the property and exits the for loop. 
-                newDonor.blood_type = Convert.ToInt32(keyPress.ToString());
+                newDonor.BloodType = Convert.ToInt32(keyPress.ToString());
                 break;
             }
             else Console.WriteLine("Wrong input");

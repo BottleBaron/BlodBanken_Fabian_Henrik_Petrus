@@ -4,12 +4,12 @@ public class HealthInformation
 {
     // STRONG CONNECTION TO DONOR
     // DB Properties
-    public int id { get; }
-    public int donor_id { get; set; }
-    public int donor_height { get; set; }
-    public int donor_weight { get; set; }
-    public bool is_drug_user { get; set; }
-    public bool visited_high_risk_country { get; set; }
+    public int Id { get; }
+    public int DonorId { get; set; }
+    public int DonorHeight { get; set; }
+    public int DonorWeight { get; set; }
+    public bool IsDrugUser { get; set; }
+    public bool HasVisitedHighRiskCountry { get; set; }
     
     // Runtime Properties
     public string DonorName { get; set; }
@@ -22,11 +22,11 @@ public class HealthInformation
 
    public HealthInformation(int donorId, int donorHeight, int donorWeight, bool isDrugUser, bool haveVisitedHighRiskCountry)
     {
-        donor_id = donorId;
-        donor_height = donorHeight;
-        donor_weight = donorWeight;
-        is_drug_user = isDrugUser;
-        visited_high_risk_country = haveVisitedHighRiskCountry;
+        DonorId = donorId;
+        DonorHeight = donorHeight;
+        DonorWeight = donorWeight;
+        IsDrugUser = isDrugUser;
+        HasVisitedHighRiskCountry = haveVisitedHighRiskCountry;
     }
     
 }

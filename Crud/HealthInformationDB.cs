@@ -7,7 +7,9 @@ internal class HealthInformationDB : DBConnection, ICrud<HealthInformation>
 {
     public List<HealthInformation> Read()
     {
-        string query = "SELECT * FROM health_information";
+        string query = "SELECT id AS Id, donor_id AS DonorId, donor_height AS DonorHeight, donor_weight AS DonorWeight,"+
+         "is_drug_user AS IsDrugUser,visited_high_risk_country AS HasVisitedHighRiskCountry"+
+         " FROM health_information";
 
         using (var connection = DBConnect())
         {
@@ -33,7 +35,7 @@ internal class HealthInformationDB : DBConnection, ICrud<HealthInformation>
 
         string query =
             $"INSERT INTO health_information (donor_id, donor_height, donor_weight, is_drug_user, visited_high_risk_country) " +
-            "VALUES(@donor_id, @donor_height, @donor_weight, @is_drug_user, @visited_high_risk_country); SELECT MAX(id) FROM health_information;";
+            "VALUES(@DonorId, @DonorHeight, @DonorWeight, @IsDrugUser, @HasVisitedHighRiskCountry); SELECT MAX(id) FROM health_information;";
 
         using (var connection = DBConnect())
         {
@@ -54,9 +56,9 @@ internal class HealthInformationDB : DBConnection, ICrud<HealthInformation>
         var parameters = new DynamicParameters(obj);
 
         string query = "UPDATE health_information " +
-                       "SET donor_id = @donor_id, donor_height = @donor_height, donor_weight = @donor_weight, " +
-                       "is_ = @appointment_date " +
-                       "WHERE id = @id";
+                       "SET donor_id = @DonorId, donor_height = @DonorHeight, donor_weight = @DonorWeight, " +
+                       "is_drug_user = @IsDrugUser, visited_high_risk_country = @HasVisitedHighRiskCountry" +
+                       "WHERE id = @Id";
 
         using (var connection = DBConnect())
         {
@@ -75,7 +77,7 @@ internal class HealthInformationDB : DBConnection, ICrud<HealthInformation>
     {
         var parameters = new DynamicParameters(obj);
 
-        string query = "DELETE health_information where id = @id";
+        string query = "DELETE health_information where id = @Id";
 
         using (var connection = DBConnect())
         {

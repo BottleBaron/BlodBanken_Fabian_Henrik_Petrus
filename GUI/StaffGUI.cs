@@ -87,7 +87,7 @@ class StaffGUI
             {
                 foreach (var booking in bookingsToCheck)
                 {
-                    if (result == booking.id)
+                    if (result == booking.Id)
                     {
                         selectedBooking = booking;
                         goto anchor;
@@ -116,8 +116,8 @@ class StaffGUI
             }
         }
 
-        Donor bloodTypeGetter = donorMgr.SelectDonor(selectedBooking.donor_id);
-        bloodUnitMgr.EnterNewBloodUnits(unitsDonated, selectedBooking, bloodTypeGetter.blood_type);
+        Donor bloodTypeGetter = donorMgr.SelectDonor(selectedBooking.DonorId);
+        bloodUnitMgr.EnterNewBloodUnits(unitsDonated, selectedBooking, bloodTypeGetter.BloodType);
     }
 
     private void SendRequestMenu()
@@ -143,7 +143,7 @@ class StaffGUI
                 $"A letter have been sent out to following donors with chosen bloodtype {bloodTypeKey.BloodType[result]}.");
             foreach (var item in myDonorList)
             {
-                Console.WriteLine($"{item.name} {item.address} " );
+                Console.WriteLine($"{item.Name} {item.Address} " );
             }
            
             Console.ReadKey();

@@ -21,13 +21,13 @@ internal class BloodUnitManager
         // If ! match: add a new bloodtype name to the dict and start at 1; 
         // Else: Increment bloodtype Count in dict
 
-        int currentBType = listOfBloodUnits.First().blood_type;
+        int currentBType = listOfBloodUnits.First().BloodType;
         bloodUnitDict.Add(bloodTypekey.BloodType[currentBType], 1);
         foreach (var bloodUnit in listOfBloodUnits)
         {
-            if (bloodUnit.blood_type != currentBType)
+            if (bloodUnit.BloodType != currentBType)
             {
-                currentBType = bloodUnit.blood_type;
+                currentBType = bloodUnit.BloodType;
                 bloodUnitDict.Add(bloodTypekey.BloodType[currentBType], 1);
             }
             else
@@ -45,10 +45,10 @@ internal class BloodUnitManager
         {
             BloodUnit bU = new()
             {
-                donor_id = booking.donor_id,
-                booking_id = booking.id,
-                blood_type = bloodType,
-                is_consumed = false
+                DonorId = booking.DonorId,
+                BookingId = booking.Id,
+                BloodType = bloodType,
+                IsConsumed = false
             };
 
             _bloodUnitDb.Create(bU);

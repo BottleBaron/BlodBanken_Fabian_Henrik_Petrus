@@ -23,8 +23,8 @@ internal class MedicinManager
         foreach (string medicines in medcineInputs)
         {
             Medicin newMedicine  = new();
-            newMedicine.health_info_id = healthInformationId;
-            newMedicine.medicine = medicines;
+            newMedicine.HealthInfoId = healthInformationId;
+            newMedicine.Medicine = medicines;
 
             _medicinDb.Create(newMedicine);
         

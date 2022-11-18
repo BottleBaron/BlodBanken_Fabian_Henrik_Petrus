@@ -6,7 +6,9 @@ internal class BookingDB :DBConnection, ICrud<Booking>
 {
     public List<Booking> Read()
     {
-        string query = "SELECT * FROM bookings";
+        string query = "SELECT id AS Id, donor_id AS DonorId, staff_id AS StaffId,"+ 
+        " appointment_date AS AppointmentDate, is_done AS IsDone"+
+        " FROM bookings";
 
         using (var connection = DBConnect())
         {
@@ -31,7 +33,7 @@ internal class BookingDB :DBConnection, ICrud<Booking>
         var parameters = new DynamicParameters(obj);
 
         string query = "INSERT INTO bookings (donor_id, staff_id, is_done, appointment_date) " +
-        "VALUES(@donor_id, @staff_id, @is_done, @appointment_date); SELECT MAX(id) FROM bookings";
+        "VALUES(@DonorId, @StaffId, @IsDone, @AppointmentDate); SELECT MAX(id) FROM bookings";
 
         using (var connection = DBConnect())
         {
@@ -53,8 +55,8 @@ internal class BookingDB :DBConnection, ICrud<Booking>
         var parameters = new DynamicParameters(obj);
 
         string query = "UPDATE bookings " +
-        "SET donor_id = @donor_id, staff_id = @staff_id, is_done = @is_done, appointment_date = @appointment_date " +
-        "WHERE id = @id";
+        "SET donor_id = @DonorId, staff_id = @StaffId, is_done = @IsDone, appointment_date = @AppointmentDate " +
+        "WHERE id = @Id";
 
         using (var connection = DBConnect())
         {
@@ -73,7 +75,7 @@ internal class BookingDB :DBConnection, ICrud<Booking>
     {
         var parameters = new DynamicParameters(obj);
 
-        string query = "DELETE bookings WHERE id = @id";
+        string query = "DELETE bookings WHERE id = @Id";
 
         using (var connection = DBConnect())
         {
@@ -93,7 +95,8 @@ internal class BookingDB :DBConnection, ICrud<Booking>
     {
         var parameters = new DynamicParameters(obj);
 
-        string query = "SELECT * FROM bookings WHERE staff_id = @id";
+        string query = "SELECT id AS Id, donor_id AS DonorId, staff_id AS StaffId,"+ 
+        " appointment_date AS AppointmentDate, is_done AS IsDone"+ " FROM bookings WHERE staff_id = @Id";
 
         using (var connection = DBConnect())
         {

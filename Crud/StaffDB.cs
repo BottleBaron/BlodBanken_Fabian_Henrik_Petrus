@@ -6,7 +6,7 @@ internal class StaffDB : DBConnection, ICrud<Staff>
 {
     public List<Staff> Read()
     {
-        string query = "SELECT * FROM staff";
+        string query = "SELECT id AS Id, login_name AS LoginName, name AS Name, password as Password FROM staff";
 
         using (var connection = DBConnect())
         {
@@ -31,7 +31,7 @@ internal class StaffDB : DBConnection, ICrud<Staff>
         var parameters = new DynamicParameters(obj);
 
         string query = "INSERT INTO staff (name, login_name, password) " +
-                       "VALUES(@name, login_name, password); SELECT MAX(id) FROM bookings";
+                       "VALUES(@Name, LoginName, Password); SELECT MAX(id) FROM bookings";
 
         using (var connection = DBConnect())
         {
@@ -52,8 +52,8 @@ internal class StaffDB : DBConnection, ICrud<Staff>
         var parameters = new DynamicParameters(obj);
 
         string query = "UPDATE staff " +
-                       "SET name = @name, login_name = @login_name, password = @password" +
-                       "WHERE id = @id";
+                       "SET name = @Name, login_name = @LoginName, password = @Password" +
+                       "WHERE id = @Id";
 
         using (var connection = DBConnect())
         {
@@ -72,7 +72,7 @@ internal class StaffDB : DBConnection, ICrud<Staff>
     {
         var parameters = new DynamicParameters(obj);
 
-        string query = "DELETE staff where id = @id";
+        string query = "DELETE staff where id = @Id";
 
         using (var connection = DBConnect())
         {
@@ -91,9 +91,9 @@ internal class StaffDB : DBConnection, ICrud<Staff>
     public Staff SelectStaff(int id)
     {
         var parameters = new DynamicParameters();
-        parameters.Add("@id", id);
+        parameters.Add("@Id", id);
 
-        string query = "SELECT * FROM staff WHERE id = @id";
+        string query = "SELECT * FROM staff WHERE id = @Id";
 
         using (var connection = DBConnect())
         {

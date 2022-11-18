@@ -6,7 +6,8 @@ internal class BloodUnitDB : DBConnection, ICrud<BloodUnit>
 {
     public List<BloodUnit> Read()
     {
-        string query = "SELECT * FROM blood_units";
+        string query = "SELECT id AS Id, donor_id AS DonorId, booking_id AS BookingId, blood_type AS BloodType,"+
+         " is_consumed AS IsConsumed FROM blood_units";
 
         using (var connection = DBConnect())
         {
@@ -32,7 +33,7 @@ internal class BloodUnitDB : DBConnection, ICrud<BloodUnit>
         var parameters = new DynamicParameters(obj);
         
         string query = $"INSERT INTO blood_units (donor_id, booking_id, blood_type, is_consumed) " +
-        "VALUES(@donor_id, @booking_id, @blood_type, @is_consumed); SELECT MAX(id) FROM blood_units;";
+        "VALUES(@DonorId, @BookingId, @BloodType, @IsConsumed); SELECT MAX(id) FROM blood_units;";
 
         using (var connection = DBConnect())
         {
@@ -53,8 +54,8 @@ internal class BloodUnitDB : DBConnection, ICrud<BloodUnit>
         var parameters = new DynamicParameters(obj);
 
         string query = $"UPDATE blood_units " +
-        "SET donor_id = @donor_id, booking_id = @booking_id, blood_type = @blood_type, is_consumed = @is_consumed " +
-        "WHERE id = @id";
+        "SET donor_id = @DonorId, booking_id = @BookingId, blood_type = @BloodType, is_consumed = @IsConsumed " +
+        "WHERE id = @Id";
 
         using (var connection = DBConnect())
         {
@@ -73,7 +74,7 @@ internal class BloodUnitDB : DBConnection, ICrud<BloodUnit>
     {
         var parameters = new DynamicParameters(obj);
 
-        string query = "DELETE blood_units WHERE id = @id";
+        string query = "DELETE blood_units WHERE id = @Id";
 
         using (var connection = DBConnect())
         {

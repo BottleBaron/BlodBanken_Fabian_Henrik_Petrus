@@ -11,7 +11,7 @@ internal class MedicinDB : DBConnection, ICrud<Medicin>
          var parameters = new DynamicParameters(myMedicine);
         
         string query = $"INSERT INTO medicin (health_info_id,medicine) " +
-        "VALUES(@health_info_id, @medicine); SELECT LAST_INSERT_ID();";
+        "VALUES(@HealthInfoId, @Medicine); SELECT LAST_INSERT_ID();";
 
         using (var connection = DBConnect())
         {
@@ -31,7 +31,7 @@ internal class MedicinDB : DBConnection, ICrud<Medicin>
     {
          var parameters = new DynamicParameters(myMedicine);
 
-        string query = "DELETE blood_units WHERE id = @id";
+        string query = "DELETE medicin WHERE id = @Id";
 
         using (var connection = DBConnect())
         {
@@ -48,7 +48,7 @@ internal class MedicinDB : DBConnection, ICrud<Medicin>
 
     public List<Medicin> Read()
     {   
-        string query = "SELECT * FROM medicin";
+        string query = "SELECT id AS Id,health_info_id AS HealthInfoId, medicine AS Medicine FROM medicin";
           using (var connection = DBConnect())
         {
             try
@@ -73,8 +73,8 @@ internal class MedicinDB : DBConnection, ICrud<Medicin>
          var parameters = new DynamicParameters(myMedicine);
 
         string query = $"UPDATE medicine " +
-        "SET health_info_id = @health_info_id, medicine = @medicine " +
-        "WHERE id = @id";
+        "SET health_info_id = @HealthInfoId, medicine = @Medicine " +
+        "WHERE id = @Id";
 
         using (var connection = DBConnect())
         {
