@@ -37,6 +37,7 @@ internal class BookingManager
         {
             DonorId = id,
             StaffId = rStaffId,
+            // INTERESTING
             AppointmentDate = DateTime.Now.AddDays(7).AddMinutes(DateTime.Now.Minute % 15 == 0 ? 0 : 15 - DateTime.Now.Minute % 15),
             IsDone = false
         };

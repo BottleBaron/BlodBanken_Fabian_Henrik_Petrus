@@ -4,6 +4,7 @@ internal class BloodUnitManager
 {
     private BloodUnitDB _bloodUnitDb = new ();
 
+    // INTERESTING
     public Dictionary<string, int> GetBloodUnitsAmount()
     {
         var bloodTypekey = new BloodTypeKey();
