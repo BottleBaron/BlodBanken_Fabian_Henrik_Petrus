@@ -18,7 +18,9 @@ class StaffGUI
                 "-- STAFF MENU--",
                 "1.) Check Blood Stock",
                 "2.) Confirm a Donation",
-                "3.) Send Requests To Donors"
+                "3.) Send Requests To Donors",  
+                "4.) View all your bookings",
+                "5.) Return"
             };
             foreach (var line in menuString)
             {
@@ -31,14 +33,33 @@ class StaffGUI
             if (key.Key == ConsoleKey.D1) CheckBloodStockMenu();
             else if (key.Key == ConsoleKey.D2) DonationConfirmMenu();
             else if (key.Key == ConsoleKey.D3) SendRequestMenu();
+            else if (key.Key == ConsoleKey.D4) ViewBookings();
+            else if (key.Key == ConsoleKey.D5) return;
             else continue;
         }
+    }
+
+    private void ViewBookings()
+    {
+        BookingManager bookingManager = new();
+        List<Booking> bookingsByStaff = bookingManager.GetBookingsByStaff(loggedInStaffMember);
+
+        Console.Clear();
+        Console.WriteLine("-- BOOKINGS --");
+        foreach (var booking in bookingsByStaff)
+        {
+            booking.GetNameValues();
+            Console.WriteLine(booking.ToString());
+        }
+        Console.ReadKey();
     }
 
     private void CheckBloodStockMenu()
     {
         BloodUnitManager bloodUnitManager = new();
         Dictionary<string, int> currentStock = bloodUnitManager.GetBloodUnitsAmount();
+      
+        Console.Clear();
         if (currentStock == null)
         {
             Console.WriteLine("Stock is empty");

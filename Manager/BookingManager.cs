@@ -4,6 +4,12 @@ internal class BookingManager
 {
     private BookingDB _bookingDb = new();
 
+    public List<Booking> GetBookingsByStaff(Staff staffMember)
+    {
+        List<Booking> relatedBookings = _bookingDb.SelectByStaffId(staffMember);
+        return relatedBookings;
+    }
+
     public List<Booking> GetPastBookingsByStaff(Staff staffMember)
     {
         List<Booking> relatedBookings = _bookingDb.SelectByStaffId(staffMember);
