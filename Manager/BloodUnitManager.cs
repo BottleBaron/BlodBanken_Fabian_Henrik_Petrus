@@ -3,7 +3,7 @@ namespace BlodBanken_Fabian_Henrik_Petrus;
 internal class BloodUnitManager
 {
     private BloodUnitDB _bloodUnitDb = new ();
-
+    //INTERESTING
     public Dictionary<string, int> GetBloodUnitsAmount()
     {
         var bloodTypekey = new BloodTypeKey();
