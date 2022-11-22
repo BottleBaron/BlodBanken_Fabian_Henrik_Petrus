@@ -118,37 +118,44 @@ class DonorGUI
             else Console.WriteLine("Incorrect value");
         }
 
-        //Save to DB
-        int healthInformationId = healthInfoManager.SaveHealthInformationToDB(newHealthInformation);
-
-        if (isUsingMedicine == true)
-        {
-            medicinManager.SaveMedicinListToDB(medicineList,healthInformationId);
-            
-        }
 
         while (notFitForDonation > 0)
         {
             newHealthInformation.DonorId = donorId;
             healthInfoManager._DeleteSurvey(newHealthInformation);
 
-            Console.WriteLine("You are not fit to donate any blood. Would you like to be kept in our register?\n1.) Yes\n2.) No");
-
-            var key = Console.ReadKey();
-            if (key.Key == ConsoleKey.D1)
+            Console.Clear();
+            Console.WriteLine("You are not fit to donate any blood. Would you like to be kept in our register?\n[Y]\n[N]");
+            var key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.Y)
             {
                 Console.WriteLine("You will be kept in our register");
+                Console.ReadKey();
                 break;
             }
-            // else if(key.Key == ConsoleKey.D2)
-            // {
-            //     bookingManager._DeleteBooking();
-            // }
+            else if(key.Key == ConsoleKey.N)
+            {
+                DonorManager donorMgr = new();
+                donorMgr.DeleteDonor(donorId);
+
+                Console.WriteLine("Your records will not be kept");
+                Console.ReadKey();
+                return;
+            }
         }
         //TODO: Check for non fitting values of a donor
         
         // TODO: Create a better version of this
-        bookingManager.CreateSpaghettiBooking(donorId);
+       
+       
+        //Save to DB
+        int healthInformationId = healthInfoManager.SaveHealthInformationToDB(newHealthInformation);
+
+        if (isUsingMedicine == true)
+            medicinManager.SaveMedicinListToDB(medicineList,healthInformationId);
+
+        if(notFitForDonation < 1)
+            bookingManager.CreateSpaghettiBooking(donorId);
         
         Console.WriteLine("Health information has been successfully registered!");
         Console.ReadKey();

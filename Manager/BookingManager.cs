@@ -28,10 +28,11 @@ internal class BookingManager
     public void CreateSpaghettiBooking(int id)
     {
         var staffdb = new StaffDB();
-        Random random = new Random();
+        var random = new Random();
         
         List<Staff> listOfStaff = staffdb.Read();
-        int rStaffId = random.Next(1,listOfStaff.Count);
+
+        int rStaffId = random.Next(1, listOfStaff.Count);
         
         Booking newBooking = new Booking()
         {

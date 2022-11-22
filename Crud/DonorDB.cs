@@ -75,7 +75,25 @@ internal class DonorDB : DBConnection, ICrud<Donor>
     {
         var parameters = new DynamicParameters(obj);
 
-        string query = "DELETE donors WHERE id = @Id";
+        string query = "DELETE FROM donors WHERE id = @Id";
+
+        using (var connection = DBConnect())
+        {
+            try
+            {
+                connection.Execute(query, parameters);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+    }
+    public void Delete(int id)
+    {
+        var parameters = new {Id = id};
+
+        string query = "DELETE FROM donors WHERE id = @Id";
 
         using (var connection = DBConnect())
         {
@@ -94,10 +112,10 @@ internal class DonorDB : DBConnection, ICrud<Donor>
     {
         var parameters = new DynamicParameters();
         parameters.Add("@Id", id);
-        
-        string query = "SELECT id AS Id, name AS Name, phone_number AS PhoneNumber, blood_type AS BloodType,"+
+
+        string query = "SELECT id AS Id, name AS Name, phone_number AS PhoneNumber, blood_type AS BloodType," +
         " address AS Address, date_of_birth AS DateOfBirth FROM donors WHERE id = @Id";
-        
+
         using (var connection = DBConnect())
         {
             try
@@ -121,10 +139,10 @@ internal class DonorDB : DBConnection, ICrud<Donor>
     {
         var parameters = new DynamicParameters();
         parameters.Add("@BloodType", bloodType);
-        
-        string query = "SELECT id AS Id, name AS Name, phone_number AS PhoneNumber, blood_type AS BloodType, address AS Address,"+
+
+        string query = "SELECT id AS Id, name AS Name, phone_number AS PhoneNumber, blood_type AS BloodType, address AS Address," +
         " date_of_birth AS DateOfBirth FROM donors WHERE blood_type = @BloodType";
-        
+
         using (var connection = DBConnect())
         {
             try

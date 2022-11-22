@@ -33,7 +33,8 @@ internal class BookingDB :DBConnection, ICrud<Booking>
         var parameters = new DynamicParameters(obj);
 
         string query = "INSERT INTO bookings (donor_id, staff_id, is_done, appointment_date) " +
-        "VALUES(@DonorId, @StaffId, @IsDone, @AppointmentDate); SELECT MAX(id) FROM bookings";
+        "VALUES(@DonorId, @StaffId, @IsDone, @AppointmentDate); SELECT MAX(id) FROM bookings;";
+
 
         using (var connection = DBConnect())
         {
