@@ -155,11 +155,14 @@ class DonorGUI
         if (isUsingMedicine == true)
             medicinManager.SaveMedicinListToDB(medicineList,healthInformationId);
 
-        if(notFitForDonation < 1)
-            newBooking =  bookingManager.CreateSpaghettiBooking(donorId);
+        if (notFitForDonation < 1)
+        {
+            newBooking = bookingManager.CreateSpaghettiBooking(donorId);
+            newBooking.GetNameValues();
+        }
         
         Console.WriteLine("Health information has been successfully registered!\n");
-        Console.WriteLine($"You are scheduled for an appointment at {newBooking.AppointmentDate} and your booking id is {newBooking.Id}");
+        Console.WriteLine($"You are scheduled for an appointment with {newBooking.StaffName} at {newBooking.AppointmentDate} and your booking id is {newBooking.Id}");
         Console.ReadKey();
     }
 
