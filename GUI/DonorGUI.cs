@@ -5,7 +5,7 @@ class DonorGUI
     public void MainMenu()
     {
         Console.Clear();
-        Console.WriteLine("Välkommen till Blodbanken.\nPress any key to begin your registration process:");
+        Console.WriteLine("Welcome to the Blood Bank.\nPress any key to begin your registration process:");
         Console.ReadKey(true);
 
         int donorId = RegisterDonor();
@@ -23,6 +23,7 @@ class DonorGUI
         HealthInformation newHealthInformation = new();
         BookingManager bookingManager = new();
         List<string> medicineList = new List<string>();
+        Booking newBooking = new Booking();
 
         bool isUsingMedicine;
         newHealthInformation.DonorId = donorId;
@@ -155,9 +156,10 @@ class DonorGUI
             medicinManager.SaveMedicinListToDB(medicineList,healthInformationId);
 
         if(notFitForDonation < 1)
-            bookingManager.CreateSpaghettiBooking(donorId);
+            newBooking =  bookingManager.CreateSpaghettiBooking(donorId);
         
-        Console.WriteLine("Health information has been successfully registered!");
+        Console.WriteLine("Health information has been successfully registered!\n");
+        Console.WriteLine($"You are scheduled for an appointment at {newBooking.AppointmentDate} and your booking id is {newBooking.Id}");
         Console.ReadKey();
     }
 

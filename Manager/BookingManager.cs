@@ -25,7 +25,7 @@ internal class BookingManager
         _bookingDb.Update(booking);
     }
 
-    public void CreateSpaghettiBooking(int id)
+    public Booking CreateSpaghettiBooking(int id)
     {
         var staffdb = new StaffDB();
         var random = new Random();
@@ -38,11 +38,14 @@ internal class BookingManager
         {
             DonorId = id,
             StaffId = rStaffId,
-            AppointmentDate = DateTime.Now.AddDays(7).AddMinutes(DateTime.Now.Minute % 15 == 0 ? 0 : 15 - DateTime.Now.Minute % 15),
+            AppointmentDate = DateTime.Now.AddDays(7).AddMinutes(DateTime.Now.Minute % 15 == 0 ? 0 : 15 - DateTime.Now.Minute % 15).AddSeconds(DateTime.Now.Second % 60 == 0 ? 0 : 0 - DateTime.Now.Second % 60),
             IsDone = false
         };
 
-        _bookingDb.Create(newBooking);
+        int newBookingId = _bookingDb.Create(newBooking);
+        newBooking = _bookingDb.SelectByBookingId(newBookingId);
+
+        return newBooking;
     }
 
     public void _DeleteBooking(Booking obj)

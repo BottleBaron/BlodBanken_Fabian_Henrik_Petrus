@@ -135,4 +135,33 @@ internal class BookingDB :DBConnection, ICrud<Booking>
             }
         }
     }
+
+
+
+     public Booking SelectByBookingId(int id)
+    {
+       
+        var parameters = new DynamicParameters();
+        parameters.Add("@Id", id);
+
+        string query = "SELECT id AS Id, donor_id AS DonorId, staff_id AS StaffId,"+ 
+        " appointment_date AS AppointmentDate, is_done AS IsDone"+ " FROM bookings WHERE id = @Id";
+
+        using (var connection = DBConnect())
+        {
+            try
+            {
+                Booking booking = connection.QuerySingle<Booking>(query, parameters);
+                return booking;
+            }
+            catch (System.InvalidOperationException)
+            {
+                return null;
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+    }
 }
