@@ -41,4 +41,8 @@ internal class HealthInfoManager
         healthInformationId = _healthInfoDb.Create(newHealthInformation);
         return healthInformationId;
     }
+    public void _DeleteSurvey(HealthInformation obj)
+    {
+        _healthInfoDb.DeleteSurvey(obj);
+    }
 }

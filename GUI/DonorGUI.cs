@@ -27,6 +27,8 @@ class DonorGUI
         bool isUsingMedicine;
         newHealthInformation.DonorId = donorId;
 
+        int notFitForDonation = 0;
+
         //Height input
         while (true)
         {
@@ -68,6 +70,11 @@ class DonorGUI
             if (healthInfoManager.VerifyYesOrNo(selector) != null)
             {
                 newHealthInformation.IsDrugUser = (bool)healthInfoManager.VerifyYesOrNo(selector);
+                
+                if(newHealthInformation.IsDrugUser == true)
+                {
+                    notFitForDonation ++;
+                }
                 break;
             }
             else Console.WriteLine("Incorrect value");
@@ -82,6 +89,11 @@ class DonorGUI
             if (healthInfoManager.VerifyYesOrNo(selector) != null)
             {
                 newHealthInformation.HasVisitedHighRiskCountry = (bool)healthInfoManager.VerifyYesOrNo(selector);
+                
+                if(newHealthInformation.HasVisitedHighRiskCountry == true)
+                {
+                    notFitForDonation ++;
+                }
                 break;
             }
             else Console.WriteLine("Incorrect value");
@@ -113,6 +125,25 @@ class DonorGUI
         {
             medicinManager.SaveMedicinListToDB(medicineList,healthInformationId);
             
+        }
+
+        while (notFitForDonation > 0)
+        {
+            newHealthInformation.DonorId = donorId;
+            healthInfoManager._DeleteSurvey(newHealthInformation);
+
+            Console.WriteLine("You are not fit to donate any blood. Would you like to be kept in our register?\n1.) Yes\n2.) No");
+
+            var key = Console.ReadKey();
+            if (key.Key == ConsoleKey.D1)
+            {
+                Console.WriteLine("You will be kept in our register");
+                break;
+            }
+            // else if(key.Key == ConsoleKey.D2)
+            // {
+            //     bookingManager._DeleteBooking();
+            // }
         }
         //TODO: Check for non fitting values of a donor
         
