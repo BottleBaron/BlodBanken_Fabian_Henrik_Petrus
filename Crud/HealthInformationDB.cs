@@ -91,4 +91,23 @@ internal class HealthInformationDB : DBConnection, ICrud<HealthInformation>
             }
         }
     }
+    
+    public void DeleteSurvey(HealthInformation obj)
+    {
+        var parameters = new DynamicParameters(obj);
+
+        string query = "DELETE FROM health_information WHERE donor_id = @id";
+
+        using (var connection = DBConnect())
+        {
+            try
+            {
+                connection.Execute(query, parameters);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+    }
 }

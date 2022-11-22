@@ -43,4 +43,9 @@ internal class BookingManager
 
         _bookingDb.Create(newBooking);
     }
+
+    public void _DeleteBooking(Booking obj)
+    {
+        _bookingDb.DeleteBooking(obj);
+    }
 }

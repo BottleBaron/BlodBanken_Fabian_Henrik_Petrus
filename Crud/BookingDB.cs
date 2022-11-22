@@ -115,4 +115,23 @@ internal class BookingDB :DBConnection, ICrud<Booking>
             }
         }
     }
+
+    public void DeleteBooking(Booking obj)
+    {
+        var parameters = new DynamicParameters(obj);
+
+        string query = "DELETE FROM bookings WHERE donor_id = @id";
+
+        using (var connection = DBConnect())
+        {
+            try
+            {
+                connection.Execute(query, parameters);
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+    }
 }
