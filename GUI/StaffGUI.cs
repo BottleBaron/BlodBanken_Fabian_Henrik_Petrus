@@ -18,7 +18,7 @@ class StaffGUI
                 "-- STAFF MENU--",
                 "1.) Check Blood Stock",
                 "2.) Confirm a Donation",
-                "3.) Send Requests To Donors",  
+                "3.) Send Requests To Donors",
                 "4.) View all your bookings",
                 "5.) Return"
             };
@@ -58,7 +58,7 @@ class StaffGUI
     {
         BloodUnitManager bloodUnitManager = new();
         Dictionary<string, int> currentStock = bloodUnitManager.GetBloodUnitsAmount();
-      
+
         Console.Clear();
         if (currentStock == null)
         {
@@ -83,7 +83,7 @@ class StaffGUI
         DonorManager donorMgr = new();
 
         List<Booking> bookingsToCheck = bookingMgr.GetPastBookingsByStaff(loggedInStaffMember);
-        
+
         Booking selectedBooking = new();
         while (true)
         {
@@ -119,7 +119,7 @@ class StaffGUI
             Console.ReadKey();
         }
 
-        anchor:
+    anchor:
 
         bookingMgr.CheckBooking(selectedBooking);
 
@@ -158,15 +158,19 @@ class StaffGUI
         string? selectedBloodType = Console.ReadLine();
         if (Int32.TryParse(selectedBloodType, out int result))
         {
-            
             List<Donor> myDonorList = donorManager.GetDonorByBloodType(result);
-            Console.WriteLine(
-                $"A letter have been sent out to following donors with chosen bloodtype {bloodTypeKey.BloodType[result]}.");
-            foreach (var item in myDonorList)
+            if (myDonorList != null)
             {
-                Console.WriteLine($"{item.Name} {item.Address} " );
+                Console.WriteLine(
+                $"A letter have been sent out to following donors with chosen bloodtype {bloodTypeKey.BloodType[result]}.");
+                foreach (var item in myDonorList)
+                {
+                    Console.WriteLine($"{item.Name} {item.Address} ");
+                }
+
             }
-           
+            else Console.WriteLine("No donors were found with a matching input");
+
             Console.ReadKey();
         }
     }
